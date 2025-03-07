@@ -1,0 +1,78 @@
+.cardContent {
+	width: 330rpx;
+	height: 400rpx;
+	border: 1rpx solid #999;
+	border-radius: 8%;
+}
+.top {
+	position: relative;
+	height: 180rpx;
+}
+.cource-img {
+	width: 100%;
+	height: 180rpx;
+}
+.title {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 64rpx;
+	background-color: rgba(0, 0, 0, 0.3)
+}
+text {
+	margin-left: 20rpx;
+	font-size: 32rpx;
+	color: #fff;
+	line-height: 64rpx;
+}
+.bottom {
+	padding: 0 10rpx;
+}
+.course-position {
+	height: 40rpx;
+}
+.course-positionIcon {
+	font-size: 26rpx;
+	line-height: 40rpx;
+	color: #999;
+}
+.course-position-txt {
+	font-size: 26rpx;
+	line-height: 40rpx;
+	color: #999;
+}
+.course-number {
+	margin-left: 20rpx;
+	font-size: 26rpx;
+	line-height: 40rpx;
+	color: #999;
+}
+.course-msg {
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	margin-top: 6rpx;
+	padding: 0 0 0 20rpx;
+	height: 40rpx;
+	background-color: rgba(153, 153, 153, 0.1);
+	border-radius: 25rpx;
+}
+.course-join-number {
+	font-size: 26rpx;
+	line-height: 40rpx;
+	color: #999;
+}
+.course-action-btn {
+	position: absolute;
+	right: 0;
+	height: 40rpx;
+	line-height: 40rpx;
+	font-size: 26rpx;
+	color: #4cd964;
+	background-color: #000;
+	border-radius: 25rpx;
+}
+@font-face {
+	font-family: TimeFont;
+	src: url("../../static/resource/images/icon/time.png");
+}
