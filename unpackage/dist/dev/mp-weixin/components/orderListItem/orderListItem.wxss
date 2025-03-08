@@ -1,0 +1,97 @@
+.order-item {
+	height: 500rpx;
+	border-radius: 40rpx;
+	background-color: #f7f7f7;
+}
+.order-title {
+	display: flex;
+	padding: 0 40rpx;
+	height: 100rpx;
+	background-color: #333;
+	border-radius: 40rpx 40rpx 0 0;
+}
+.order-title-class {
+	margin-top: 15rpx;
+	width: 120rpx;
+	height: 70rpx;
+	line-height: 70rpx;
+	font-size: 36rpx;
+	text-align: center;
+	font-weight: 600;
+	background-color: #4cd964;
+	border-radius: 24rpx;
+}
+.order-title-txt {
+	margin-left: 30rpx;
+	margin-top: 15rpx;
+	height: 70rpx;
+	line-height: 70rpx;
+	background-color: #333;
+	color: #fff;
+	font-size: 32rpx;
+}
+.order-content {
+	height: 100rpx;
+	padding: 0 20rpx;
+}
+.order-content-msg {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30rpx;
+	height: 60rpx;
+}
+.order-msg-time {
+	height: 60rpx;
+	padding: 0 10rpx;
+	line-height: 60rpx;
+	font-size: 32rpx;
+	border: 1rpx solid #333;
+	border-radius: 10rpx;
+}
+.order-msg-detail {
+	position: absolute;
+	right: 48rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+	font-size: 32rpx;
+	color: #4cd964;
+	background-color: #000;
+	border-radius: 16rpx;
+}
+.order-content-avatar {
+	margin-top: 20rpx;
+	margin-bottom: 40rpx;
+	height: 60rpx;
+}
+.order-content-avatar ul {
+	display: flex;
+}
+.order-content-avatar li {
+	position: absolute;
+	width: 60rpx;
+	height: 60rpx;
+}
+.order-content-avatar li image {
+	width: 60rpx;
+	height: 60rpx;
+	border-radius: 100%;
+}
+.order-avatarTxt {
+	height: 60rpx;
+	margin-left: 160rpx;
+	font-size: 32rpx;
+	line-height: 60rpx;
+	color: #999;
+}
+.order-content-detail {
+	margin: 20rpx;
+	height: 40rpx;
+}
+.order-detail-icon {
+	font-size: 32rpx;
+	line-height: 40rpx;
+}
+.order-detail-txt {
+	font-size: 32rpx;
+	line-height: 40rpx;
+}

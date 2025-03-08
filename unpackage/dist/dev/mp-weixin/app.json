@@ -4,7 +4,8 @@
     "pages/order/index",
     "pages/user/index",
     "pages/group/index",
-    "pages/details/details"
+    "pages/details/details",
+    "pages/myClass/myClass"
   ],
   "window": {
     "navigationBarTextStyle": "black",

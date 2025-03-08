@@ -14,7 +14,7 @@ const _sfc_main = {
         "/static/resource/images/banner/banner1.jpg",
         "/static/resource/images/banner/banner2.jpg"
       ],
-      tabs: ["小区拼班", "部分拼班动态"],
+      tabs: ["社区拼班", "部分拼班动态"],
       positionCurrent: 0,
       items: ["全部", "进行中", "已结束"],
       current: 0,
@@ -71,8 +71,20 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     g: $data.current === 0,
-    h: $data.current === 1,
-    i: $data.current === 2
+    h: common_vendor.f($data.courseList, (item, index, i0) => {
+      return {
+        a: "721f2bf6-4-" + i0,
+        b: index
+      };
+    }),
+    i: $data.current === 1,
+    j: common_vendor.f($data.courseList, (item, index, i0) => {
+      return {
+        a: "721f2bf6-5-" + i0,
+        b: index
+      };
+    }),
+    k: $data.current === 2
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="banner">
 			<swiper :indicator-dots="true" :circular="true" :autoplay="true" :interval="3000" :duration="1000">
-				<!-- 根据imgList渲染 -->
+				<!-- 根据banner渲染 -->
 				<swiper-item v-for="(item,index) in bannerList" :key="index">
 					<image class="banner-img" :src="item"></image>
 				</swiper-item>
@@ -35,10 +35,18 @@
 						</ul>
 					</view>
 					<view v-show="current === 1">
-						选项卡2的内容
+						<ul>
+							<li v-for="(item,index) in courseList" :key="index">
+								<cardItem />
+							</li>
+						</ul>
 					</view>
 					<view v-show="current === 2">
-						选项卡3的内容
+						<ul>
+							<li v-for="(item,index) in courseList" :key="index">
+								<cardItem />
+							</li>
+						</ul>
 					</view>
 				</view>
 			</view>
@@ -47,7 +55,6 @@
 </template>
 
 <script>
-	import segmented from '@/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue'
 	import CardItem from '@/components/cartItem/cartItem.vue'
 
 	export default {
@@ -63,7 +70,7 @@
 					'/static/resource/images/banner/banner1.jpg',
 					'/static/resource/images/banner/banner2.jpg'
 				],
-				tabs: ['小区拼班', '部分拼班动态'],
+				tabs: ['社区拼班', '部分拼班动态'],
 				positionCurrent: 0,
 
 				items: ['全部', '进行中', '已结束'],

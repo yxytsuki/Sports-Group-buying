@@ -1,16 +1,12 @@
-.order-title {
-	padding: 0 24rpx;
-	font-size: 38rpx;
-	font-weight: 600;
-}
 .order-filterTabs {
 	margin-top: 10rpx;
-	width: 400rpx;
 	font-size: 32rpx;
 }
+
 .order-item-list {
 	margin: 30rpx;
 }
+
 .order-item-list ul li {
 	margin-top: 20rpx;
 }
