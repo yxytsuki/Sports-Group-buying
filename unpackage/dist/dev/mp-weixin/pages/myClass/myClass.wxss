@@ -1,0 +1,11 @@
+.myClass-filterTabs {
+	margin-top: 10rpx;
+	width: 400rpx;
+	font-size: 32rpx;
+}
+.myClass-item-list {
+	margin: 30rpx;
+}
+.myClass-item-list ul li {
+	margin-top: 20rpx;
+}

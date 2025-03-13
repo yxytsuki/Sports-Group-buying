@@ -7,7 +7,7 @@ const _sfc_main = {
   },
   data() {
     return {
-      filterTabs: ["待支付", "拼班中", "已完成"],
+      filterTabs: ["全部", "待支付", "拼班中", "已完成"],
       current: 0,
       orderItem: [1, 2, 3, 4, 5, 6]
     };

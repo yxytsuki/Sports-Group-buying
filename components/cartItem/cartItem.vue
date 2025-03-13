@@ -13,11 +13,11 @@
 			</view>
 			<view class="course-time">
 				<uni-icons type="map-pin-ellipse" class="course-positionIcon"></uni-icons>
-				<span class="course-position-txt">下沙高教公园</span>
+				<span class="course-position-txt">周日11：00~12：00</span>
 			</view>
 			<view class="course-class">
 				<uni-icons type="map-pin-ellipse" class="course-positionIcon"></uni-icons>
-				<span class="course-position-txt">下沙高教公园</span>
+				<span class="course-position-txt">班级号7890</span>
 			</view>
 			<view class="course-number">
 				<span>满5成班</span>

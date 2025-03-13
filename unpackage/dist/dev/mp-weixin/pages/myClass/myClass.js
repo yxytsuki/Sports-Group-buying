@@ -7,12 +7,9 @@ const _sfc_main = {
   },
   data() {
     return {
-      overlap: 20,
-      avatarList: [
-        "/static/logo.png",
-        "/static/logo.png",
-        "/static/logo.png"
-      ]
+      filterTabs: ["全部", "拼班中", " 已完成"],
+      current: 0,
+      orderItem: [1, 2, 3, 4, 5, 6]
     };
   },
   methods: {}
@@ -30,12 +27,12 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      current: _ctx.current,
-      values: _ctx.filterTabs,
+      current: $data.current,
+      values: $data.filterTabs,
       ["style-type"]: "text",
       activeColor: "#4cd964"
     }),
-    b: common_vendor.f(_ctx.orderItem, (item, index, i0) => {
+    b: common_vendor.f($data.orderItem, (item, index, i0) => {
       return {
         a: "2920192c-1-" + i0,
         b: index

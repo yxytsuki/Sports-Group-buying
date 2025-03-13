@@ -1,0 +1,127 @@
+.user-content {
+	padding: 0 40rpx;
+	background-image: linear-gradient(to bottom, #4cd964, #c3f4b1, #f4f4f4);
+}
+
+.user-content-top {
+	height: 400rpx;
+}
+
+.user-avator {
+	display: flex;
+	padding: 60rpx 0;
+	height: 240rpx;
+}
+
+.user-avator .user-img {
+	width: 120rpx;
+	height: 120rpx;
+}
+
+.user-avator .user-img image {
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+}
+
+.user-login {
+	margin-left: 24rpx;
+	margin-top: 36rpx;
+}
+
+.user-switch::before {
+	content: '';
+	display: inline-block;
+	background-image: url('/static/icon/switch.png');
+	width: 30rpx;
+	height: 24rpx;
+	background-size: 100% 100%;
+}
+
+.user-switch {
+	margin-top: 36rpx;
+	margin-left: 40rpx;
+	padding: 0 10rpx;
+	width: 160rpx;
+	height: 40rpx;
+	font-size: 28rpx;
+	line-height: 40rpx;
+	color: #19fa28;
+	background-color: #fff;
+	border-radius: 20rpx;
+}
+
+.user-switch-active {
+	background-color: #dedede;
+}
+
+.user-amount {
+	padding: 20rpx;
+	width: 320rpx;
+	height: 136rpx;
+	border: 1rpx solid #333;
+	background-color: #fff;
+	border-radius: 25rpx;
+}
+
+.user-amount-txt {
+	margin-bottom: 12rpx;
+}
+
+.user-join {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40rpx;
+	padding: 0 32rpx;
+	height: 100rpx;
+	background-image: linear-gradient(to left, #4cd964, #aae29a);
+	border-radius: 25rpx;
+}
+
+.user-join-txt {
+	font-size: 40rpx;
+	line-height: 100rpx;
+}
+
+.user-join-btn {
+	margin-top: 16rpx;
+	width: 150rpx;
+	height: 64rpx;
+	font-size: 28rpx;
+	line-height: 64rpx;
+	text-align: center;
+	color: #4cd964;
+	background-color: #000;
+	border-radius: 32rpx;
+
+}
+
+.user-content-bottom {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding: 12rpx 12rpx;
+	margin-top: 160rpx;
+	height: 400rpx;
+	background-color: #fff;
+	border-radius: 36rpx;
+}
+
+.user-content-menu {
+	width: 160rpx;
+	height: 160rpx;
+	/* background-color: pink; */
+}
+
+.user-menu-icon {
+	margin-top: 40rpx;
+	margin-left: 48rpx;
+	width: 60rpx;
+	height: 60rpx;
+}
+
+.user-menu-title {
+	font-size: 26rpx;
+	color: #999;
+	text-align: center;
+}

@@ -41,6 +41,12 @@
 			"style": {
 				"navigationBarTitleText": "我的拼班"
 			}
+		},
+		{
+			"path": "pages/pay/pay",
+			"style": {
+				"navigationBarTitleText": "加入拼班"
+			}
 		}
 	],
 	"tabBar": {
