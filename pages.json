@@ -47,6 +47,18 @@
 			"style": {
 				"navigationBarTitleText": "加入拼班"
 			}
+		},
+		{
+			"path": "pages/teacherIndex/teacherIndex",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/teacher/teacher",
+			"style": {
+				"navigationBarTitleText": "教练中心"
+			}
 		}
 	],
 	"tabBar": {

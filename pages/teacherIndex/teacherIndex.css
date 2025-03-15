@@ -1,0 +1,268 @@
+.teacher-content-top {
+	padding: 40rpx 36rpx;
+	height: 600rpx;
+	background-image: linear-gradient(to bottom, #84ff7b, #d4ffd8, #f9ffd8);
+}
+
+.teacher-top-center {
+	height: 60rpx;
+	font-size: 36rpx;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.teacher-top-card {
+	margin-top: 30rpx;
+	padding: 0 20rpx;
+	height: 320rpx;
+	background-color: #444;
+	border-radius: 40rpx;
+}
+
+.teacher-card-img {
+	position: absolute;
+	top: 160rpx;
+	right: 100rpx;
+	width: 200rpx;
+	height: 200rpx;
+}
+
+.teacher-card-position {
+	display: flex;
+	position: absolute;
+	padding: 0 10rpx;
+	top: 38rpx;
+	right: 36rpx;
+	text-align: center;
+	line-height: 60rpx;
+	width: 160rpx;
+	height: 60rpx;
+	border: 1px solid #444;
+	border-radius: 40rpx;
+}
+
+.teahcer-position-txt {
+	font-weight: bold;
+}
+
+.teacher-card-user {
+	display: flex;
+	padding: 24rpx 0;
+	height: 120rpx;
+}
+
+.teacher-user-avator {
+	width: 100rpx;
+	height: 100rpx;
+	background-color: #b1b1b1;
+	border-radius: 100%;
+}
+
+.teacher-user-img {
+	width: 100rpx;
+	height: 100rpx;
+	border-radius: 100%;
+}
+
+.teacher-user-nickName {
+	margin-left: 20rpx;
+	margin-top: 24rpx;
+	font-size: 32rpx;
+	color: #fff;
+	font-weight: bold;
+}
+
+.teacher-card-amount {
+	margin-top: 30rpx;
+}
+
+.teacher-amount-txt {
+	display: flex;
+	color: #fff;
+}
+
+.teacher-amount-amount {
+	margin-top: 20rpx;
+	font-size: 60rpx;
+	color: #fff;
+	font-weight: 600;
+}
+
+.teacher-amount-visible {
+	margin-left: 20rpx;
+	margin-top: -10rpx;
+	width: 60rpx;
+	height: 60rpx;
+	background-image: url(/static/icon/browse.png);
+	background-size: 100% 100%;
+}
+
+.teacher-amount-isvisible {
+	margin-left: 20rpx;
+	margin-top: -10rpx;
+	width: 60rpx;
+	height: 60rpx;
+	background-image: url(/static/icon/hide.png);
+	background-size: 100% 100%;
+}
+
+.teacher-content-income {
+	width: calc(100% - 60rpx);
+	padding: 0 30rpx;
+	margin: 0rpx auto;
+	margin-top: -110rpx;
+	height: 400rpx;
+	background-color: #fff;
+	border-radius: 48rpx;
+}
+
+.teacher-today-top {
+	display: flex;
+	justify-content: space-between;
+	padding: 30rpx 20rpx;
+	height: 260rpx;
+	border-bottom: 1rpx solid #b1b1b1;
+}
+
+.teacher-top-left {
+	width: 240rpx;
+	height: 200rpx;
+}
+
+.teacher-top-right {
+	width: 240rpx;
+	height: 200rpx;
+}
+
+.teacher-today-txt {
+	margin-top: 20rpx;
+	margin-left: 40rpx;
+	width: 160rpx;
+	height: 60rpx;
+	font-size: 28rpx;
+	color: #999;
+	text-align: center;
+	line-height: 60rpx;
+	background-color: #d7d7d7;
+	border-radius: 30rpx;
+}
+
+.teacher-today-amount {
+	margin-top: 30rpx;
+	text-align: center;
+	font-size: 36rpx;
+	font-weight: 600;
+}
+
+.teacher-today-number {
+	margin-top: 30rpx;
+	text-align: center;
+	font-size: 36rpx;
+	font-weight: 600;
+}
+
+.teacher-today-bottom {
+	display: flex;
+	padding: 0 20rpx;
+	justify-content: space-between;
+}
+
+.teacher-bottom-left {
+	display: flex;
+	padding: 30rpx 20rpx;
+	width: 280rpx;
+	height: 120rpx;
+}
+
+.teacher-bottom-right {
+	display: flex;
+	padding: 30rpx 20rpx;
+	width: 280rpx;
+	height: 120rpx;
+}
+
+.teacher-left-totalAmount {
+	margin-left: 10rpx;
+}
+
+.teacher-left-totalIncome {
+	margin-top: 6rpx;
+	font-size: 28rpx;
+	color: #999;
+}
+
+.teacher-content-set {
+	width: calc(100% - 60rpx);
+	padding: 40rpx;
+	margin: 40rpx auto;
+	height: 440rpx;
+	background-color: #fff;
+	border-radius: 48rpx;
+}
+
+.teacher-set-student {
+	display: flex;
+	justify-content: space-between;
+	padding: 20rpx;
+	height: 160rpx;
+	background-color: #eafff9;
+	border-radius: 20rpx;
+}
+
+.teacher-student-title {
+	margin-left: 20rpx;
+	font-size: 36rpx;
+	font-weight: bold;
+}
+
+.teacher-student-manage {
+	margin-left: 20rpx;
+	margin-top: 16rpx;
+	font-size: 28rpx;
+	color: #999;
+}
+
+.teacher-student-icon {
+	margin-right: 40rpx;
+	margin-bottom: 20rpx;
+	background-image: url(/static/icon/customer-management.png);
+	width: 100rpx;
+	height: 100rpx;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	transform: rotate(-30deg)
+}
+
+.teacher-set-order {
+	margin-top: 40rpx;
+	display: flex;
+	justify-content: space-between;
+	padding: 20rpx;
+	height: 160rpx;
+	background-color: #eafff9;
+	border-radius: 20rpx;
+}
+
+.teacher-order-title {
+	margin-left: 20rpx;
+	font-size: 36rpx;
+	font-weight: bold;
+}
+
+.teacher-order-manage {
+	margin-left: 20rpx;
+	margin-top: 16rpx;
+	font-size: 28rpx;
+	color: #999;
+}
+
+.teacher-order-icon {
+	margin-right: 40rpx;
+	margin-bottom: 20rpx;
+	background-image: url(/static/icon/catalog.png);
+	width: 100rpx;
+	height: 100rpx;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	transform: rotate(-30deg)
+}
