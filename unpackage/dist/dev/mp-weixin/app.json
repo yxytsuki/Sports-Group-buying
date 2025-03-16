@@ -6,7 +6,9 @@
     "pages/group/index",
     "pages/details/details",
     "pages/myClass/myClass",
-    "pages/pay/pay"
+    "pages/pay/pay",
+    "pages/teacherIndex/teacherIndex",
+    "pages/teacher/teacher"
   ],
   "window": {
     "navigationBarTextStyle": "black",

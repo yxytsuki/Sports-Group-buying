@@ -9,6 +9,8 @@ if (!Math) {
   "./pages/details/details.js";
   "./pages/myClass/myClass.js";
   "./pages/pay/pay.js";
+  "./pages/teacherIndex/teacherIndex.js";
+  "./pages/teacher/teacher.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -29,6 +31,5 @@ function createApp() {
     app
   };
 }
-createApp().app.mount("#app");
 exports.createApp = createApp;
 //# sourceMappingURL=../.sourcemap/mp-weixin/app.js.map

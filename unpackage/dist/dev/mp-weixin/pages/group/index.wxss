@@ -22,7 +22,7 @@ body {
 	margin-top: 120rpx;
 	padding: 36rpx;
 	height: 160rpx;
-	background-image: linear-gradient(to right, #82ff82, #bcffbe);
+	background-color: #fff;
 	border-radius: 40rpx;
 }
 .group-content-icon {

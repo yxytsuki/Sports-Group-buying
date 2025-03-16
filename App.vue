@@ -12,7 +12,6 @@
 	}
 </script>
 
-<style>
-	/*每个页面公共css */
-	@import url("static/styles/common.css");
+<style lang="scss">
+	@import url(/static/styles/common.css);
 </style>

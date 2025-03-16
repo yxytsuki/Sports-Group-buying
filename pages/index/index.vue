@@ -56,6 +56,9 @@
 
 <script>
 	import CardItem from '@/components/cartItem/cartItem.vue'
+	import {
+		mockTest
+	} from '/mock/mockTest.js'
 
 	export default {
 		components: {
@@ -80,11 +83,15 @@
 
 			}
 		},
+		onLoad() {
+
+		},
 		methods: {
-			onClickItem(e) {
+			async onClickItem(e) {
 				if (this.current != e.currentIndex) {
 					this.current = e.currentIndex;
 				}
+
 			}
 		}
 	}

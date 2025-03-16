@@ -1,8 +1,31 @@
 {
-  "hash": "b10d16cd",
+  "hash": "b25fbf15",
   "configHash": "8cae1893",
-  "lockfileHash": "e8cce034",
-  "browserHash": "034af3f3",
-  "optimized": {},
-  "chunks": {}
+  "lockfileHash": "21c9429e",
+  "browserHash": "81080c3b",
+  "optimized": {
+    "mockjs": {
+      "src": "../../../../../../../../node_modules/mockjs/dist/mock.js",
+      "file": "mockjs.js",
+      "fileHash": "95c556c5",
+      "needsInterop": true
+    },
+    "uview-ui": {
+      "src": "../../../../../node_modules/uview-ui/index.js",
+      "file": "uview-ui.js",
+      "fileHash": "a4bc20e4",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../../../../../../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "f60be9f0",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-ZS7NZCD4": {
+      "file": "chunk-ZS7NZCD4.js"
+    }
+  }
 }

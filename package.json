@@ -1,0 +1,23 @@
+{
+  "name": "sports-group-buying",
+  "version": "1.0.0",
+  "description": "\"# Sports-Group-buying\"",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yxytsuki/Sports-Group-buying.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yxytsuki/Sports-Group-buying/issues"
+  },
+  "homepage": "https://github.com/yxytsuki/Sports-Group-buying#readme",
+  "dependencies": {
+    "uview-ui": "^2.0.38"
+  }
+}
