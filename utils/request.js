@@ -8,6 +8,18 @@ const instance = axios.create({
 	timeout: 5000
 })
 
+// 配置mock环境
+// const mockService = axios.create({
+// 	baseURL: '/api',
+// 	timeout: 5000
+// })
+// 开发环境拦截器
+// if (process.env.NODE_ENV === 'development') {
+// 	mockService.interceptors.request.use(config => {
+// 		console.log('mock拦截')
+// 		return config
+// 	})
+// }
 // 自定义配置,配置请求响应拦截器
 // 添加请求拦截器
 instance.interceptors.request.use(function(config) {
@@ -26,7 +38,7 @@ instance.interceptors.request.use(function(config) {
 	const token = ''
 	if (token) {
 		config.headers['Access-Token'] = token
-		config.headers.platform = 'mp-weixin'
+		config.headers.platform = 'h5'
 	}
 
 	return config
@@ -61,3 +73,4 @@ instance.interceptors.response.use(function(response) {
 })
 
 export default instance
+// export default mockService

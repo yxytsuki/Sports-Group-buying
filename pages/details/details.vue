@@ -147,5 +147,5 @@
 </script>
 
 <style>
-	/* @import url(./details.css); */
+	@import url(./details.css);
 </style>

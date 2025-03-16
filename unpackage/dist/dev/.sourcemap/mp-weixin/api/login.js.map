@@ -1,0 +1,1 @@
+{"version":3,"file":"login.js","sources":["api/login.js"],"sourcesContent":["// 用于存放登录所有相关的接口\r\nimport request from '@/utils/request'\r\nimport axios from 'axios'\r\nexport const getPicCode = () => {\r\n\treturn request.post('/captcha/image')\r\n}"],"names":["request"],"mappings":";;AAGY,MAAC,aAAa,MAAM;AAC/B,SAAOA,cAAO,SAAC,KAAK,gBAAgB;AACrC;;"}

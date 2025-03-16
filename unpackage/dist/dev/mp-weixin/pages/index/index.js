@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const api_login = require("../../api/login.js");
 const CardItem = () => "../../components/cartItem/cartItem.js";
 const _sfc_main = {
   components: {
@@ -21,11 +22,15 @@ const _sfc_main = {
       courseList: [1, 2, 3, 4, 5]
     };
   },
+  onLoad() {
+  },
   methods: {
-    onClickItem(e) {
+    async onClickItem(e) {
       if (this.current != e.currentIndex) {
         this.current = e.currentIndex;
       }
+      const res = await api_login.getPicCode();
+      common_vendor.index.__f__("log", "at pages/index/index.vue:96", res);
     }
   }
 };

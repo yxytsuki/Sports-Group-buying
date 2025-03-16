@@ -31,5 +31,6 @@ function createApp() {
     app
   };
 }
+createApp().app.mount("#app");
 exports.createApp = createApp;
 //# sourceMappingURL=../.sourcemap/mp-weixin/app.js.map
