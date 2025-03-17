@@ -1,5 +1,5 @@
 <template>
-	<view class="cardContent">
+	<view class="cardContent" @click="jumpDetails(course.cardItemId)">
 		<view class="cardMask" v-if="!course.isRunning">
 
 		</view>
@@ -31,7 +31,7 @@
 			</view>
 			<view class="course-msg">
 				<span class="course-join-number">{{`0/${course.totalNumber}`}}</span>
-				<button class="course-action-btn" type="primary">去拼班</button>
+				<button class="course-action-btn" type="primary" @click.stop="jumpPay(course.cardItemId)">去拼班</button>
 			</view>
 		</view>
 	</view>
@@ -50,8 +50,47 @@
 		name: "cartItem",
 		data() {
 			return {
-
+				timer: null,
+				isButton: true
 			};
+		},
+		methods: {
+			jumpPay(id, e) {
+				if (this.course.isRunning) {
+					uni.showToast({
+						title: "跳转中...",
+						icon: "loading",
+						mask: true,
+						duration: 500
+					})
+					this.timer = setTimeout(() => {
+						uni.navigateTo({
+							url: `/pages/pay/pay?id=${id}`
+						})
+					}, 500)
+				}
+
+			},
+			jumpDetails(id) {
+				if (this.course.isRunning) {
+					uni.showToast({
+						title: "跳转中...",
+						icon: "loading",
+						mask: true,
+						duration: 500
+					})
+					this.timer = setTimeout(() => {
+						uni.navigateTo({
+							url: `/pages/details/details?id=${id}`
+						})
+					}, 500)
+				}
+
+			},
+		},
+		destroyed() {
+			console.log(11)
+			clearTimeout(this.timer)
 		}
 	}
 </script>

@@ -26,11 +26,11 @@
 					<uni-segmented-control :current="current" :values="items" class="filterDataItem"
 						@clickItem="onClickItem" styleType="button" activeColor="#4cd964"></uni-segmented-control>
 				</view>
-				<view class="content">
+				<view class="content" v-if="filterList">
 					<view class="course-all" v-show="current === 0">
 						<ul>
 							<li v-for="(item,index) in filterList" :key="item.cardItemId">
-								<cardItem :course="item" @click="handleJump(item.cardItemId)" />
+								<cardItem :course="item" />
 							</li>
 						</ul>
 					</view>
@@ -48,6 +48,9 @@
 							</li>
 						</ul>
 					</view>
+				</view>
+				<view class=" content-empty" v-else>
+
 				</view>
 			</view>
 		</view>
@@ -78,15 +81,10 @@
 				filterList: [],
 			}
 		},
-		onLoad() {
+		onReady() {
 			this.getContentList()
 		},
 		methods: {
-			handleJump(id) {
-				uni.navigateTo({
-					url: `/pages/details/details?id=${id}`
-				})
-			},
 			async onClickItem(e) {
 				if (this.current != e.currentIndex) {
 					this.current = e.currentIndex;
@@ -118,21 +116,30 @@
 				}
 			},
 			async getContentList() {
-				const res = await getContentList()
-				const filterRes = await getFilterData(this.current, this.positionCurrent)
-				console.log(res)
-				console.log(filterRes);
-				const {
-					data
-				} = res
-				console.log(filterRes);
-				const {
-					bannerList,
-					cardItemList
-				} = data
-				this.banner = bannerList
-				this.filterList = filterRes?.data?.filterItems
-				this.position = data?.position
+				try {
+					const res = await getContentList()
+					const filterRes = await getFilterData(this.current, this.positionCurrent)
+					console.log(res)
+					console.log(filterRes);
+					const {
+						data
+					} = res
+					console.log(filterRes);
+					const {
+						bannerList,
+						cardItemList
+					} = data
+					this.banner = bannerList
+					this.filterList = filterRes?.data?.filterItems
+					this.position = data?.position
+				} catch (err) {
+					this.banner = [
+						'/static/resource/images/banner/banner1.jpg',
+						'/static/resource/images/banner/banner1.jpg',
+						'/static/resource/images/banner/banner1.jpg',
+						'/static/resource/images/banner/banner1.jpg'
+					]
+				}
 			},
 
 		}
