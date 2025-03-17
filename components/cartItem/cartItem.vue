@@ -55,8 +55,9 @@
 			};
 		},
 		methods: {
-			jumpPay(id, e) {
+			jumpPay(id) {
 				if (this.course.isRunning) {
+					console.log(id);
 					uni.showToast({
 						title: "跳转中...",
 						icon: "loading",
@@ -72,6 +73,7 @@
 
 			},
 			jumpDetails(id) {
+				console.log(id);
 				if (this.course.isRunning) {
 					uni.showToast({
 						title: "跳转中...",

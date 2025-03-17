@@ -51,6 +51,11 @@
 	text-align: center;
 }
 
+@font-face {
+	font-family: TimeFont;
+	src: url(/static/resource/images/icon/time.png);
+}
+
 .details-time-txt {
 	margin-top: 6rpx;
 	color: #333;
