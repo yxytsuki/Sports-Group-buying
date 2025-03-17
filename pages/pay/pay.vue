@@ -64,9 +64,10 @@
 				<!-- 输入框示例 -->
 				<uni-popup ref="inputDialog" type="dialog">
 					<uni-popup-dialog ref="inputClose" mode="input" title="输入密码" placeholder="请输入密码"
-						@confirm="dialogInputConfirm">
+						@confirm="dialogInputConfirm" :before-close="isclosed">
 						<view v-slot="value" class="pay-password">
-							<input type="safe-password" :value="password" class="pay-password-input" />
+							<input type="tel" password="password" @input="getPassword" :value="password"
+								class="pay-password-input" />
 						</view>
 					</uni-popup-dialog>
 				</uni-popup>
@@ -80,8 +81,13 @@
 		getCourseDetail
 	} from '@/api/details.js'
 	import {
-		getLinkContent
+		getLinkContent,
+		checkPay
 	} from '@/api/pay.js'
+	import {
+		mapState
+	} from 'vuex'
+
 	export default {
 		data() {
 			return {
@@ -93,13 +99,20 @@
 				ischecked: false,
 				isvisible: false,
 				linkContent: '',
-				password: ''
+				password: '',
+				timer: null,
+				isclosed: false
+
 			}
 		},
 		onLoad(options) {
 			this.getContentList(options.id)
 		},
+		onUnload() {
+			clearTimeout(this.timer)
+		},
 		computed: {
+			...mapState('user', ['userInfo']),
 			// 计算属性的getter
 			getWeeks() {
 				const start = new Date(this.startTime)
@@ -145,10 +158,45 @@
 					this.showLink()
 					return
 				}
-				// 支付密码校验
+				// 支付密码弹窗打开
 				this.$refs.inputDialog.open()
+			},
+			async dialogInputConfirm() {
+				// 密码校验 支付接口（金额、用户、密码）仓库
+				const {
+					data
+				} = await checkPay(this.courseDetail.coursePrice, this.password, '2025')
+				if (data?.isTrade) {
+					uni.showToast({
+						title: '支付成功',
+						icon: "success",
+						mask: true,
+						duration: 200
+					})
+					this.isclosed = false
+					this.password = ''
+					this.timer = setTimeout(() => {
+						uni.switchTab({
+							url: '/pages/order/index'
+						})
+					}, 500)
+				} else {
+					uni.showToast({
+						title: '密码错误,请重试',
+						icon: "fail",
+						mask: true,
+						duration: 500
+					})
+					this.isclosed = true
+					this.password = ''
+				}
+			},
 
-
+			getPassword(e) {
+				// 输入密码格式待校验
+				if (e.detail.value.length === 6) {
+					this.password = e.detail.value
+				}
 			}
 
 		}
