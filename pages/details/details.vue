@@ -215,7 +215,7 @@
 				})
 				this.timer = setTimeout(() => {
 					uni.navigateTo({
-						url: `/pages/pay/pay?id=${id}`
+						url: `/pages/pay/pay?courseId=${id}`
 					})
 				}, 500)
 			},

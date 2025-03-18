@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "我的拼班",
-  "usingComponents": {
-    "class-list-item": "../../components/classListItem/classListItem",
-    "uni-segmented-control": "../../uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control"
-  }
-}

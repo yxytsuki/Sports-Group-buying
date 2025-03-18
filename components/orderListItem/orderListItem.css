@@ -1,11 +1,13 @@
 .order-item {
-	height: 500rpx;
+	height: 570rpx;
 	border-radius: 40rpx;
 	background-color: #fff;
 }
 
 .order-title {
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	padding: 0 40rpx;
 	height: 100rpx;
 	background-color: #b7d9a5;
@@ -14,12 +16,21 @@
 
 .order-title-txt {
 	margin-left: 16rpx;
-	margin-top: 15rpx;
 	height: 70rpx;
 	line-height: 70rpx;
 	color: #333;
 	font-size: 36rpx;
 	font-weight: 600;
+}
+
+.order-title-status {
+	line-height: 70rpx;
+	color: #04d927;
+}
+
+.order-title-running {
+	line-height: 70rpx;
+	color: #ff5500;
 }
 
 .order-content {
@@ -59,17 +70,32 @@
 	justify-content: space-between;
 	margin-top: 20rpx;
 	margin-bottom: 40rpx;
-	height: 40rpx;
+	height: 30rpx;
 }
 
 .order-number-txt {
 	font-size: 32rpx;
-	line-height: 40rpx;
+	line-height: 30rpx;
 	color: #999;
 }
 
 .order-number {
 	margin-right: 10rpx;
 	font-size: 32rpx;
-	line-height: 40rpx;
+	line-height: 30rpx;
+}
+
+.order-status-btn {
+	width: 140rpx;
+	height: 60rpx;
+	text-align: center;
+	line-height: 60rpx;
+	margin-left: 500rpx;
+	border: 1rpx solid #999;
+	border-radius: 25rpx;
+}
+
+.order-status-pay {
+	position: absolute;
+	right: 240rpx;
 }

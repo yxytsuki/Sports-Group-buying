@@ -146,5 +146,13 @@
 .pay-password-input {
 	height: 100%;
 	width: 100%;
+
 	border-radius: 40rpx;
+}
+
+.pay-error-msg {
+	position: absolute;
+	top: 190rpx;
+	left: 60rpx;
+	color: #ff5500;
 }

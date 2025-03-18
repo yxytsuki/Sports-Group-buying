@@ -8,8 +8,8 @@
 		</view>
 		<view class="order-item-list">
 			<ul>
-				<li v-for="(item,index) in orderItem" :key="index">
-					<orderListItem></orderListItem>
+				<li v-for="(item,index) in orderList" :key="item.orderId">
+					<orderListItem :orderItem="item"></orderListItem>
 				</li>
 			</ul>
 		</view>
@@ -18,19 +18,35 @@
 
 <script>
 	import orderListItem from '../../components/orderListItem/orderListItem.vue';
+	import {
+		getOrderList
+	} from '@/api/order.js'
 	export default {
 		components: {
 			orderListItem,
+		},
+		onReady() {
+			this.getOrderContent()
 		},
 		data() {
 			return {
 				filterTabs: ['全部', '待支付', '拼班中', '已完成'],
 				current: 0,
-				orderItem: [1, 2, 3, 4, 5, 6]
-
+				orderList: [],
+				isFinited: false
 			}
 		},
 		methods: {
+			async getOrderContent() {
+				const {
+					data: {
+						orderList,
+					}
+				} = await getOrderList()
+				console.log(orderList);
+				this.orderList = orderList
+			}
+
 
 		}
 	}
