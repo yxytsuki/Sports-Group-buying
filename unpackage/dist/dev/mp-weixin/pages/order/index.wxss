@@ -1,0 +1,10 @@
+.order-filterTabs {
+	margin-top: 10rpx;
+	font-size: 32rpx;
+}
+.order-item-list {
+	margin: 30rpx;
+}
+.order-item-list ul li {
+	margin-top: 20rpx;
+}

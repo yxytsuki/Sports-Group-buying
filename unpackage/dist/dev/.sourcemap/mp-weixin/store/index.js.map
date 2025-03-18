@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sources":["store/index.js"],"sourcesContent":["import Vue from 'vue'\r\nimport {\r\n\tcreatePinia\r\n} from 'pinia'\r\nimport user from './modules/user'\r\n\r\nconst pinia = createPinia()\r\n\r\nexport default pinia;"],"names":["createPinia"],"mappings":";;AAMK,MAAC,QAAQA,cAAW,YAAA;;"}

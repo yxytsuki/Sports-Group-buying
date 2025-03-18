@@ -6,8 +6,8 @@
 					<image src="/static/logo.png"></image>
 				</view>
 				<!-- 未登录：立即登录；已登录：昵称 -->
-				<view class="user-login">
-					立即登录
+				<view class="user-login" @click="handleLogin">
+					{{isLogin?'昵称':'立即登录'}}
 				</view>
 				<!-- <view class="user-nickName">
 					昵称
@@ -46,13 +46,38 @@
 </template>
 
 <script>
+	import {
+		useUserStore
+	} from '../../store/user';
 	export default {
 		data() {
 			return {
-
+				isLogin: false,
+				timer: null
 			}
 		},
+		onUnload() {
+			clearTimeout(this.timer)
+		},
 		methods: {
+			handleLogin() {
+				// 登陆前，跳转登陆页面 登陆采用手机号一键登录 先校验仓库有无token
+				const token = useUserStore().token
+				if (!token) {
+					uni.showToast({
+						title: "跳转中...",
+						icon: "loading",
+						mask: true,
+						duration: 500
+					})
+					this.timer = setTimeout(() => {
+						uni.navigateTo({
+							url: "/pages/getUserInfo/getUserInfo"
+						})
+					}, 500)
+				}
+
+			}
 
 		}
 	}

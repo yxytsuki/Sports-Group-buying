@@ -2,8 +2,8 @@
 	<view class="order-content">
 		<view class="order-tabs">
 			<view class="order-filterTabs">
-				<uni-segmented-control :current="current" :values="filterTabs" style-type="text"
-					activeColor="#4cd964"></uni-segmented-control>
+				<uni-segmented-control :current="current" :values="filterTabs" style-type="text" activeColor="#4cd964"
+					@clickItem="onClickItem"></uni-segmented-control>
 			</view>
 		</view>
 		<view class="order-item-list">
@@ -19,7 +19,8 @@
 <script>
 	import orderListItem from '../../components/orderListItem/orderListItem.vue';
 	import {
-		getOrderList
+		getOrderList,
+		getFilterOrder
 	} from '@/api/order.js'
 	export default {
 		components: {
@@ -45,7 +46,23 @@
 				} = await getOrderList()
 				console.log(orderList);
 				this.orderList = orderList
-			}
+			},
+			async onClickItem(e) {
+				if (this.current != e.currentIndex) {
+					this.current = e.currentIndex;
+					const filterData = await getFilterOrder(this.current)
+					const {
+						data
+					} = filterData
+					const {
+						orderList
+					} = data
+					console.log(orderList);
+					this.orderList = [...orderList]
+
+				}
+			},
+
 
 
 		}

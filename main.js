@@ -1,6 +1,8 @@
 import App from './App'
+import {
+	createPinia
+} from 'pinia'
 import Component from './myComponents/component.vue'
-
 // #ifndef VUE3
 import Vue from 'vue'
 import './uni.promisify.adaptor'
@@ -22,9 +24,13 @@ import {
 } from 'vue'
 export function createApp() {
 	const app = createSSRApp(App)
+	// 创建//pinia实例
+	const pinia = createPinia()
+	app.use(pinia)
 	app.component('my-component', Component)
 	return {
-		app
+		app,
+		pinia
 	}
 }
 // #endif

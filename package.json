@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/yxytsuki/Sports-Group-buying#readme",
   "dependencies": {
+    "pinia": "^3.0.1",
     "uview-ui": "^2.0.38"
   }
 }

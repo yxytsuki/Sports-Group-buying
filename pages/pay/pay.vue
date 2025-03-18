@@ -65,13 +65,16 @@
 				<uni-popup ref="inputDialog" type="dialog">
 					<uni-popup-dialog ref="inputClose" mode="input" title="输入密码" placeholder="请输入密码"
 						@confirm="dialogInputConfirm" @close="dialogClose" :before-close="isclosed">
-						<view v-slot="value" class="pay-password">
-							<input type="tel" password="password" maxlength="6" @input="getPassword" :value="password"
-								class="pay-password-input" />
-							<view class="pay-error-msg" v-if="isshowError">
-								密码格式错误
+						<template v-slot="value">
+							<view class="pay-password">
+								<input type="tel" password="password" maxlength="6" @input="getPassword"
+									:value="password" class="pay-password-input" />
+								<view class="pay-error-msg" v-if="isshowError">
+									密码格式错误
+								</view>
 							</view>
-						</view>
+						</template>
+
 					</uni-popup-dialog>
 				</uni-popup>
 			</view>
@@ -86,8 +89,8 @@
 		checkPay
 	} from '@/api/pay.js'
 	import {
-		mapState
-	} from 'vuex'
+		useUserStore
+	} from '@/store/user.js'
 
 	export default {
 		data() {
@@ -114,7 +117,6 @@
 			clearTimeout(this.timer)
 		},
 		computed: {
-			...mapState('user', ['userInfo']),
 			// 计算属性的getter
 			getWeeks() {
 				const start = new Date(this.startTime)
@@ -168,7 +170,7 @@
 				// 密码校验 支付接口（金额、用户、密码）仓库
 				const {
 					data
-				} = await checkPay(this.orderDetail.amount, this.password, '2025')
+				} = await checkPay(this.orderDetail.amount, this.password, useUserStore().userInfo.userId)
 				if (data?.isTrade) {
 					uni.showToast({
 						title: '支付成功',

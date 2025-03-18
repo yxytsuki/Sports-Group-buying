@@ -37,8 +37,8 @@
 				</view>
 				<span class="order-number">{{`${orderItem?.creatTime}`}}</span>
 			</view>
-			<view class="order-status-btn" @click.stop="handleJump(orderItem?.orderId)">
-				{{orderItem?.isPay?'去评价':'去支付'}}
+			<view class="order-status-btn" @click.stop="handleJump(orderItem?.orderId)" v-if="getButtonTxt">
+				{{getButtonTxt}}
 			</view>
 		</view>
 	</view>
@@ -65,6 +65,7 @@
 				],
 				startTime: this.orderItem?.time?.startTime || '',
 				endTime: this.orderItem?.time?.endTime || '',
+				timer: null
 			};
 		},
 		computed: {
@@ -75,13 +76,23 @@
 				const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 				const weeks = Math.ceil(diffDays / 7)
 				return weeks
+			},
+			getButtonTxt() {
+				if (!this.orderItem?.time?.weeks?.isRunning) {
+					return '去评价'
+				}
+				if (!this.orderItem?.isPay && this.orderItem?.time?.weeks?.isRunning) {
+					return '去支付'
+				}
+				return '已支付'
 			}
 		},
 		methods: {
 			handleJump(id) {
-				if (this.orderItem?.isPay) {
+				if (this.getButtonTxt === '去评价') {
 					console.log('去评价');
-				} else {
+				}
+				if (this.getButtonTxt === '去支付') {
 					uni.showToast({
 						title: "跳转中...",
 						icon: "loading",
@@ -96,6 +107,9 @@
 					}, 500)
 				}
 			}
+		},
+		onUnload() {
+			clearTimeout(this.timer)
 		}
 	}
 </script>

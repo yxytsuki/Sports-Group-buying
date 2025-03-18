@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "拼班详情",
+  "usingComponents": {
+    "uni-grid-item": "../../uni_modules/uni-grid/components/uni-grid-item/uni-grid-item",
+    "uni-grid": "../../uni_modules/uni-grid/components/uni-grid/uni-grid",
+    "uni-icons": "../../uni_modules/uni-icons/components/uni-icons/uni-icons",
+    "uni-popup-share": "../../uni_modules/uni-popup/components/uni-popup-share/uni-popup-share",
+    "uni-popup": "../../uni_modules/uni-popup/components/uni-popup/uni-popup"
+  }
+}
