@@ -24,7 +24,7 @@ const _sfc_main = {
           orderList
         }
       } = await api_order.getOrderList();
-      common_vendor.index.__f__("log", "at pages/order/index.vue:47", orderList);
+      common_vendor.index.__f__("log", "at pages/order/index.vue:45", orderList);
       this.orderList = orderList;
     },
     async onClickItem(e) {
@@ -37,7 +37,7 @@ const _sfc_main = {
         const {
           orderList
         } = data;
-        common_vendor.index.__f__("log", "at pages/order/index.vue:60", orderList);
+        common_vendor.index.__f__("log", "at pages/order/index.vue:58", orderList);
         this.orderList = [...orderList];
       }
     }

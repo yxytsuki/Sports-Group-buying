@@ -9,7 +9,8 @@
     "pages/pay/pay",
     "pages/teacherIndex/teacherIndex",
     "pages/teacher/teacher",
-    "pages/getUserInfo/getUserInfo"
+    "pages/getUserInfo/getUserInfo",
+    "pages/certified/certified"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -39,7 +40,7 @@
         "pagePath": "pages/order/index",
         "iconPath": "static/resource/images/order1.png",
         "selectedIconPath": "static/resource/images/order2.png",
-        "text": "订单"
+        "text": "我的订单"
       },
       {
         "pagePath": "pages/user/index",
@@ -49,6 +50,14 @@
       }
     ]
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置将用于小程序位置接口效果展示"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
   "usingComponents": {
     "my-component": "/myComponents/component"
   }

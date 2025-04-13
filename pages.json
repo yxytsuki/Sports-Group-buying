@@ -6,10 +6,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页",
-				"usingComponents": {
+				"navigationBarTitleText": "首页"
 
-				}
 			}
 		},
 		{
@@ -68,7 +66,21 @@
 			"style": {
 				"navigationBarTitleText": "一键登录"
 			}
+		},
+		{
+			"path": "pages/certified/certified",
+			"style": {
+				"navigationBarTitleText": "认证中心"
+			}
+		},
+		{
+			"path": "pages/studentSet/studentSet",
+			"style": {
+				"navigationBarTitleText": "学员管理"
+			}
 		}
+
+
 	],
 	"tabBar": {
 		"color": "#535353",
@@ -89,7 +101,7 @@
 			"pagePath": "pages/order/index",
 			"iconPath": "static/resource/images/order1.png",
 			"selectedIconPath": "static/resource/images/order2.png",
-			"text": "订单"
+			"text": "我的订单"
 		}, {
 			"pagePath": "pages/user/index",
 			"iconPath": "static/resource/images/user1.png",

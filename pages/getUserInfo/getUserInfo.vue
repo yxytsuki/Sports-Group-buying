@@ -137,8 +137,14 @@
 					mask: true,
 					duration: 500
 				})
+				uni.setStorage({
+					key: 'userInfo',
+					data: JSON.stringify(data)
+				})
 				this.timer = setTimeout(() => {
-					uni.navigateBack()
+					uni.switchTab({
+						url: "/pages/user/index"
+					})
 				}, 500)
 
 			}

@@ -7,11 +7,9 @@
 			</view>
 		</view>
 		<view class="myClass-item-list">
-			<ul>
-				<li v-for="(item,index) in orderItem" :key="index">
-					<classListItem></classListItem>
-				</li>
-			</ul>
+			<view class="myClass-item-item" v-for="(item,index) in orderItem" :key="index">
+				<classListItem></classListItem>
+			</view>
 		</view>
 	</view>
 </template>
@@ -30,6 +28,9 @@
 			}
 		},
 		methods: {
+			async getClassContent() {
+
+			}
 
 		}
 	}

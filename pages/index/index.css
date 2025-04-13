@@ -61,13 +61,13 @@
 	margin-top: 40rpx;
 }
 
-.content ul {
+.content .course-all {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
 
-.content li {
+.content .course-item {
 	margin-top: 20rpx;
 }
 

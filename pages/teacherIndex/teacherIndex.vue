@@ -14,10 +14,10 @@
 				<image src="/static/icon/ball.png" class="teacher-card-img"></image>
 				<view class="teacher-card-user">
 					<view class="teacher-user-avator">
-						<image class="teacher-user-img" src="/static/logo.png"></image>
+						<image class="teacher-user-img" :src="avator"></image>
 					</view>
 					<view class="teacher-user-nickName">
-						大白兔奶糖
+						{{nickName}}
 					</view>
 				</view>
 				<view class="teacher-card-amount">
@@ -36,7 +36,7 @@
 					</view>
 
 					<view class="teacher-amount-amount" v-if="isVisible">
-						1000.00
+						{{amount}}
 					</view>
 					<view class="teacher-amount-amount" v-if="!isVisible">
 						*****
@@ -52,7 +52,7 @@
 							今日收入
 						</view>
 						<view class="teacher-today-amount">
-							1315.00元
+							{{`${todayIncome}元`}}
 						</view>
 					</view>
 					<view class="teacher-top-right">
@@ -60,7 +60,7 @@
 							今日订单
 						</view>
 						<view class="teacher-today-number">
-							211笔
+							{{`${todayOrder}笔`}}
 						</view>
 					</view>
 				</view>
@@ -68,7 +68,7 @@
 					<view class="teacher-bottom-left">
 						<uni-icons class="teacher-left-icon" type="wallet-filled" size="30"></uni-icons>
 						<view class="teacher-left-totalAmount">
-							13335.00元
+							{{`${totalIncome}元`}}
 							<view class="teacher-left-totalIncome">
 								累计收入
 							</view>
@@ -77,7 +77,7 @@
 					<view class="teacher-bottom-right">
 						<uni-icons class="teacher-left-icon" type="wallet-filled" size="30"></uni-icons>
 						<view class="teacher-left-totalAmount">
-							13335.00元
+							{{`${amount}元`}}
 							<view class="teacher-left-totalIncome">
 								可用余额
 							</view>
@@ -87,7 +87,7 @@
 			</view>
 		</view>
 		<view class="teacher-content-set">
-			<view class="teacher-set-student">
+			<view class="teacher-set-student" @click="handleStudentSet">
 				<view class="teacher-student-txt">
 					<view class="teacher-student-title">
 						学员管理
@@ -99,13 +99,13 @@
 				<view class="teacher-student-icon">
 				</view>
 			</view>
-			<view class="teacher-set-order">
+			<view class="teacher-set-order" @click="handleOrderSet">
 				<view class="teacher-order-txt">
 					<view class="teacher-order-title">
-						订单管理
+						拼班管理
 					</view>
 					<view class="teacher-order-manage">
-						查看与管理订单
+						查看与管理拼班
 					</view>
 				</view>
 				<view class="teacher-order-icon">
@@ -116,16 +116,106 @@
 </template>
 
 <script>
+	import {
+		getTeacherIndex
+	} from '@/api/teacher_index.js'
+	import {
+		useUserStore
+	} from '@/store/user.js'
+	import amap from '../../js_sdk/amap/amap-wx.130'
 	export default {
 		data() {
 			return {
-				isVisible: false
-
+				isVisible: false,
+				amount: '',
+				todayIncome: '',
+				todayOrder: 0,
+				totalIncome: '',
+				nickName: useUserStore().userInfo.nickName,
+				avator: useUserStore().userInfo.avator,
+				timer: null
 			}
+		},
+		onReady() {
+			// 获取教师版首页信息
+			this.getTeacher()
+			// 获取地理位置
+			this.getLocation()
+
+		},
+		onUnload() {
+			clearTimeout(this.timer)
 		},
 		methods: {
 			handleVisible() {
 				this.$data.isVisible = !this.$data.isVisible
+			},
+			// 获取地理位置
+			getLocation() {
+				const dom = new amap.AMapWX({
+					key: "ae02e28d3e8ca8fd8cdec393417969a9"
+				})
+				dom.getRegeo({
+					sucess: (res) => {
+						console.log(res)
+					},
+					fail: (err) => {
+						console.log(err)
+						uni.showToast({
+							title: "获取地理位置失败",
+							icon: "none"
+						})
+					}
+				})
+			},
+			// 查询教师版首页信息
+			async getTeacher() {
+				const {
+					data
+				} = await getTeacherIndex()
+				const {
+					teacherMsg
+				} = data
+				console.log(teacherMsg)
+				if (!data?.success) {
+					uni.showToast({
+						title: '暂无信息',
+						icon: 'none'
+					});
+					return
+				}
+				this.amount = teacherMsg?.amount
+				this.todayIncome = teacherMsg?.todayIncome
+				this.todayOrder = teacherMsg?.todayOrder
+				this.totalIncome = teacherMsg?.totalIncome
+
+			},
+			handleStudentSet() {
+				uni.showToast({
+					title: "跳转中...",
+					icon: "loading",
+					mask: true,
+					duration: 500
+				})
+				this.timer = setTimeout(() => {
+					uni.navigateTo({
+						url: '/pages/studentSet/studentSet'
+					})
+				}, 500)
+
+			},
+			handleOrderSet() {
+				uni.showToast({
+					title: "跳转中...",
+					icon: "loading",
+					mask: true,
+					duration: 500
+				})
+				this.timer = setTimeout(() => {
+					uni.switchTab({
+						url: '/pages/myClass/myClass'
+					})
+				}, 500)
 			}
 
 		}

@@ -7,11 +7,9 @@
 			</view>
 		</view>
 		<view class="order-item-list">
-			<ul>
-				<li v-for="(item,index) in orderList" :key="item.orderId">
-					<orderListItem :orderItem="item"></orderListItem>
-				</li>
-			</ul>
+			<view class="order-item-item" v-for="(item,index) in orderList" :key="item.orderId">
+				<orderListItem :orderItem="item"></orderListItem>
+			</view>
 		</view>
 	</view>
 </template>
@@ -48,7 +46,7 @@
 				this.orderList = orderList
 			},
 			async onClickItem(e) {
-				if (this.current != e.currentIndex) {
+				if (this.current !== e.currentIndex) {
 					this.current = e.currentIndex;
 					const filterData = await getFilterOrder(this.current)
 					const {

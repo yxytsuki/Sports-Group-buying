@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const common_vendor = require("./common/vendor.js");
+require("./store/user.js");
 if (!Math) {
   "./pages/index/index.js";
   "./pages/order/index.js";
@@ -12,6 +13,7 @@ if (!Math) {
   "./pages/teacherIndex/teacherIndex.js";
   "./pages/teacher/teacher.js";
   "./pages/getUserInfo/getUserInfo.js";
+  "./pages/certified/certified.js";
 }
 const _sfc_main = {
   onLaunch: function() {

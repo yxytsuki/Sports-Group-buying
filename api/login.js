@@ -9,3 +9,10 @@ export const getLogin = (param) => {
 		...param
 	})
 }
+export const getUser = (userId) => {
+	return request.get('http://127.0.0.1:4523/m1/6035558-5725382-default/getUser', {
+		params: {
+			userId
+		}
+	})
+}

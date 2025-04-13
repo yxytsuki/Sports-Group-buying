@@ -28,25 +28,19 @@
 				</view>
 				<view class="content" v-if="filterList">
 					<view class="course-all" v-show="current === 0">
-						<ul>
-							<li v-for="(item,index) in filterList" :key="item.cardItemId">
-								<cardItem :course="item" />
-							</li>
-						</ul>
+						<view class="course-item" v-for="(item,index) in filterList" :key="item.cardItemId">
+							<cardItem :course="item" />
+						</view>
 					</view>
-					<view v-show="current === 1">
-						<ul>
-							<li v-for="(item,index) in filterList" :key="item.cardItemId">
-								<cardItem :course="item" />
-							</li>
-						</ul>
+					<view class="course-all" v-show="current === 1">
+						<view class="course-item" v-for="(item,index) in filterList" :key="item.cardItemId">
+							<cardItem :course="item" />
+						</view>
 					</view>
-					<view v-show="current === 2">
-						<ul>
-							<li v-for="(item,index) in filterList" :key="item.cardItemId">
-								<cardItem :course="item" />
-							</li>
-						</ul>
+					<view class="course-all" v-show="current === 2">
+						<view class="course-item" v-for="(item,index) in filterList" :key="item.cardItemId">
+							<cardItem :course="item" />
+						</view>
 					</view>
 				</view>
 				<view class=" content-empty" v-else>
@@ -102,8 +96,7 @@
 			async handleToggle(e) {
 				if (this.positionCurrent != e.currentIndex) {
 					this.positionCurrent = e.currentIndex;
-					console.log(this.current, this.positionCurrent);
-					const filterData = await getFilterData(this.Current, this.positionCurrent)
+					const filterData = await getFilterData(this.current, this.positionCurrent)
 					const {
 						data
 					} = filterData

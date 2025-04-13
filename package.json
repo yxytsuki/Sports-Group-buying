@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/yxytsuki/Sports-Group-buying#readme",
   "dependencies": {
+    "@uni-helper/axios-adapter": "^1.5.2",
+    "axios-adapter-uniapp": "^0.1.4",
     "pinia": "^3.0.1",
+    "uni-axios": "^1.0.5",
+    "uni-simple-router": "^2.0.7",
     "uview-ui": "^2.0.38"
   }
 }

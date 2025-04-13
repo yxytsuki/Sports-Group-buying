@@ -97,15 +97,25 @@ const _sfc_main = {
         mask: true,
         duration: 500
       });
+      common_vendor.index.setStorage({
+        key: "userInfo",
+        data: JSON.stringify(data)
+      });
       this.timer = setTimeout(() => {
-        common_vendor.index.navigateBack();
+        common_vendor.index.switchTab({
+          url: "/pages/user/index"
+        });
       }, 500);
     }
   }
 };
 if (!Array) {
-  const _component_uni_easyinput = common_vendor.resolveComponent("uni-easyinput");
-  _component_uni_easyinput();
+  const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
+  _easycom_uni_easyinput2();
+}
+const _easycom_uni_easyinput = () => "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
+if (!Math) {
+  _easycom_uni_easyinput();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {

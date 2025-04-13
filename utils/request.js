@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from "uni-axios";
 // 创建axios实例，将对创建出来的实例进行自定义配置
 // 不会污染原始axios
 
 const instance = axios.create({
 	// 后续会根据服务端基地址进行更改
 	baseURL: 'http://smart-shop.itheima.net/index.php?s=/api',
-	timeout: 5000
+	timeout: 5000,
 })
 
 // 配置mock环境

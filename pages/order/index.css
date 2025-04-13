@@ -7,6 +7,6 @@
 	margin: 30rpx;
 }
 
-.order-item-list ul li {
+.order-item-list .order-item-item {
 	margin-top: 20rpx;
 }

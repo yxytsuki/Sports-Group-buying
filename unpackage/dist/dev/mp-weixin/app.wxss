@@ -24,7 +24,13 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-* {
+view,
+scroll-view,
+swiper,
+swiper-item,
+text,
+rich-text,
+image {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;

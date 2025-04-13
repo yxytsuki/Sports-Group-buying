@@ -72,17 +72,17 @@
 	height: 60rpx;
 }
 
-.myClass-content-avatar ul {
+.myClass-content-avatar .myClass-avator-list {
 	display: flex;
 }
 
-.myClass-content-avatar li {
+.myClass-content-avatar .myClass-avator-item {
 	position: absolute;
 	width: 60rpx;
 	height: 60rpx;
 }
 
-.myClass-content-avatar li image {
+.myClass-content-avatar .myClass-avator-item image {
 	width: 60rpx;
 	height: 60rpx;
 	border-radius: 100%;

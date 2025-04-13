@@ -33,24 +33,23 @@ const _sfc_main = {
         const {
           filterItems
         } = data;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:98", data);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:92", data);
         this.filterList = filterItems;
       }
     },
     async handleToggle(e) {
       if (this.positionCurrent != e.currentIndex) {
         this.positionCurrent = e.currentIndex;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:105", this.current, this.positionCurrent);
-        const filterData = await api_index.getFilterData(this.Current, this.positionCurrent);
+        const filterData = await api_index.getFilterData(this.current, this.positionCurrent);
         const {
           data
         } = filterData;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:110", filterData);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:103", filterData);
         const {
           filterItems
         } = data;
         this.filterList = filterItems;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:115", this.filterList);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:108", this.filterList);
       }
     },
     async getContentList() {
@@ -58,12 +57,12 @@ const _sfc_main = {
       try {
         const res = await api_index.getContentList();
         const filterRes = await api_index.getFilterData(this.current, this.positionCurrent);
-        common_vendor.index.__f__("log", "at pages/index/index.vue:122", res);
-        common_vendor.index.__f__("log", "at pages/index/index.vue:123", filterRes);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:115", res);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:116", filterRes);
         const {
           data
         } = res;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:127", filterRes);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:120", filterRes);
         const {
           bannerList,
           cardItemList

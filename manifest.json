@@ -57,7 +57,15 @@
 			"postcss": true,
 			"minified": true
 		},
-		"usingComponents": true
+		"usingComponents": true,
+		"permission": {
+			"scope.userLocation": {
+				"desc": "你的位置将用于小程序位置接口效果展示"
+			}
+		},
+		"requiredPrivateInfos": [
+			"getLocation"
+		]
 	},
 	"mp-alipay": {
 		"usingComponents": true

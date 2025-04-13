@@ -3,7 +3,7 @@
 	background-image: linear-gradient(to bottom, #4cd964, #c3f4b1, #f4f4f4);
 }
 .user-content-top {
-	height: 400rpx;
+	/* height: 400rpx; */
 }
 .user-avator {
 	display: flex;
@@ -86,7 +86,7 @@
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	padding: 12rpx 12rpx;
-	margin-top: 160rpx;
+	margin-top: 60rpx;
 	height: 400rpx;
 	background-color: #fff;
 	border-radius: 36rpx;

@@ -1,4 +1,10 @@
-* {
+view,
+scroll-view,
+swiper,
+swiper-item,
+text,
+rich-text,
+image {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;

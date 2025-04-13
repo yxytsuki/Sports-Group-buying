@@ -13,11 +13,12 @@
 					<button class="myClass-msg-detail">查看详情</button>
 				</view>
 				<view class="myClass-content-avatar">
-					<ul v-if="avatarList.length<=3">
-						<li v-for="(item,index) in avatarList" :key="index" :style="{left:`${25+index * overlap}px`}">
+					<view class="myClass-avator-list" v-if="avatarList.length<=3">
+						<view class="myClass-avator-item" v-for="(item,index) in avatarList" :key="index"
+							:style="{left:`${25+index * overlap}px`}">
 							<image :src="item"></image>
-						</li>
-					</ul>
+						</view>
+					</view class="myClass-avator-ul">
 					<span class="myClass-avatarTxt">{{`剩余${avatarList.length}个名额`}}</span>
 				</view>
 

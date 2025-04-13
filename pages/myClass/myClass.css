@@ -8,6 +8,6 @@
 	margin: 30rpx;
 }
 
-.myClass-item-list ul li {
+.myClass-item-list .myClass-item-item {
 	margin-top: 20rpx;
 }
