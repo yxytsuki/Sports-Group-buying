@@ -97,32 +97,44 @@
 }
 
 .user-content-bottom {
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
 	padding: 12rpx 12rpx;
 	margin-top: 60rpx;
-	height: 400rpx;
+	height: 360rpx;
 	background-color: #fff;
 	border-radius: 36rpx;
 }
 
 
 .user-content-menu {
-	width: 160rpx;
+	margin-left: 36rpx;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 90%;
 	height: 160rpx;
-	/* background-color: pink; */
+	border-bottom: 1px solid rgba(76, 217, 100, 0.5);
+}
+
+.user-content-menu::after {
+	content: '';
+	display: block;
+	margin-top: 14rpx;
+	margin-left: 240rpx;
+	width: 24px;
+	height: 24px;
+	background-image: url(/static/icon/jinru.png);
+	background-size: 90% 90%;
 }
 
 .user-menu-icon {
-	margin-top: 40rpx;
-	margin-left: 48rpx;
-	width: 60rpx;
-	height: 60rpx;
+	margin-left: 28rpx;
+	width: 90rpx;
+	height: 90rpx;
 }
 
 .user-menu-title {
-	font-size: 26rpx;
-	color: #999;
+	margin-left: 20rpx;
+	font-size: 32rpx;
+	color: #333;
 	text-align: center;
 }

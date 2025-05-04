@@ -1,0 +1,103 @@
+.collected-course {
+	display: flex;
+	position: relative;
+	margin-bottom: 24rpx;
+	/* 增大间距 */
+	height: 160rpx;
+	/* 适当增加高度 */
+	padding: 24rpx;
+	/* 增加内边距 */
+	background: #ffffff;
+	/* 纯白背景 */
+	border: 1rpx solid #e0e0e0;
+	/* 更浅的边框色 */
+	border-radius: 12rpx;
+	/* 圆角边框 */
+	box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+	/* 柔和阴影 */
+	transition: all 0.3s ease;
+	/* 悬停动画 */
+}
+
+.collected-course::after {
+	position: absolute;
+	content: '';
+	display: block;
+	right: 40rpx;
+	top: 45%;
+	width: 32rpx;
+	height: 32rpx;
+	background-image: url('/static/icon/jinru.png');
+	background-size: 100% 100%;
+	/* 确保图片完整显示 */
+	background-repeat: no-repeat;
+}
+
+/* 悬停效果（可选） */
+.collected-course:hover {
+	transform: translateY(-2rpx);
+	/* 轻微上浮 */
+	box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.12);
+}
+
+.collected-backgroundImg {
+	position: relative;
+	margin-top: 8rpx;
+	width: 100rpx;
+	height: 100rpx;
+}
+
+.collected-backgroundImg image {
+	width: 100%;
+	height: 100%;
+}
+
+.collected-title {
+	margin-left: 20rpx;
+	font-size: 36rpx;
+}
+
+.collected-distance {
+	position: absolute;
+	top: 0;
+	width: 80rpx;
+	height: 40rpx;
+	text-align: center;
+	line-height: 40rpx;
+	opacity: 60%;
+	background-color: #000;
+	color: #fff;
+	font-size: 24rpx;
+}
+
+.collected-detail {
+	width: 380rpx;
+}
+
+.collected-title {
+	font-size: 36rpx;
+}
+
+.collected-instruction {
+	margin-top: 10rpx;
+	margin-left: 20rpx;
+	font-size: 28rpx;
+	color: #999;
+	flex: 1;
+	min-width: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.collected-status {
+	margin-top: 40rpx;
+	font-size: 28rpx;
+	color: #22ff17;
+}
+
+.collected-unstatus {
+	margin-top: 40rpx;
+	font-size: 28rpx;
+	color: #da0000;
+}

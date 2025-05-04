@@ -6,7 +6,7 @@
 		</view>
 		<view class="group-content-new">
 			<image src="/static/icon/add-circle.png" class="group-content-icon"></image>
-			<view class="group-new-title">
+			<view class="group-new-title" @click="jumpNewClass">
 				新建拼团
 			</view>
 		</view>
@@ -21,6 +21,22 @@
 			}
 		},
 		methods: {
+			onunload() {
+				clearTimeout(timer)
+			},
+			jumpNewClass() {
+				uni.showToast({
+					title: "跳转中...",
+					icon: "loading",
+					mask: true,
+					duration: 500
+				})
+				this.timer = setTimeout(() => {
+					uni.navigateTo({
+						url: '/pages/newClass/newClass'
+					})
+				}, 500)
+			}
 
 		}
 	}

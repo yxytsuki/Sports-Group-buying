@@ -241,6 +241,14 @@
     "es-errors" "^1.3.0"
     "gopd" "^1.2.0"
 
+"echarts@^5.6.0":
+  "integrity" "sha512-oTbVTsXfKuEhxftHqL5xprgLoc0k7uScAwtryCgWF6hPYFLRwOUHiFmHGCBKP5NPFNkDVopOieyUqYGH8Fa3kA=="
+  "resolved" "https://registry.npmjs.org/echarts/-/echarts-5.6.0.tgz"
+  "version" "5.6.0"
+  dependencies:
+    "tslib" "2.3.0"
+    "zrender" "5.6.1"
+
 "entities@^4.5.0":
   "integrity" "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="
   "resolved" "https://registry.npmjs.org/entities/-/entities-4.5.0.tgz"
@@ -368,6 +376,11 @@
   "resolved" "https://registry.npmjs.org/local-pkg/-/local-pkg-0.4.3.tgz"
   "version" "0.4.3"
 
+"lodash@^4.17.21":
+  "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
+  "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
+  "version" "4.17.21"
+
 "magic-string@^0.30.11":
   "integrity" "sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA=="
   "resolved" "https://registry.npmjs.org/magic-string/-/magic-string-0.30.17.tgz"
@@ -460,6 +473,11 @@
   dependencies:
     "copy-anything" "^3.0.2"
 
+"tslib@2.3.0":
+  "integrity" "sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.0.tgz"
+  "version" "2.3.0"
+
 "uni-axios@^1.0.5":
   "integrity" "sha512-3Zuek8718gEuq0ISt0ko7b5K/H9Y16U66sgz3wBM5YcE52aq9XsepPaHnZQYlasoh8YzMOufv8yuA0mVBMAo7Q=="
   "resolved" "https://registry.npmjs.org/uni-axios/-/uni-axios-1.0.5.tgz"
@@ -500,3 +518,10 @@
   "integrity" "sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ=="
   "resolved" "https://registry.npmjs.org/webpack-virtual-modules/-/webpack-virtual-modules-0.6.2.tgz"
   "version" "0.6.2"
+
+"zrender@5.6.1":
+  "integrity" "sha512-OFXkDJKcrlx5su2XbzJvj/34Q3m6PvyCZkVPHGYpcCJ52ek4U/ymZyfuV1nKE23AyBJ51E/6Yr0mhZ7xGTO4ag=="
+  "resolved" "https://registry.npmjs.org/zrender/-/zrender-5.6.1.tgz"
+  "version" "5.6.1"
+  dependencies:
+    "tslib" "2.3.0"

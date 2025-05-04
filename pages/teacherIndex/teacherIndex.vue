@@ -44,7 +44,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="teacher-content-income">
+		<view class="teacher-content-income" @click="jumpTeacherIncome">
 			<view class="teacher-income-today">
 				<view class="teacher-today-top">
 					<view class="teacher-top-left">
@@ -189,6 +189,19 @@
 				this.todayOrder = teacherMsg?.todayOrder
 				this.totalIncome = teacherMsg?.totalIncome
 
+			},
+			jumpTeacherIncome() {
+				uni.showToast({
+					title: "跳转中...",
+					icon: "loading",
+					mask: true,
+					duration: 500
+				})
+				this.timer = setTimeout(() => {
+					uni.navigateTo({
+						url: '/pages/teacherIncome/teacherIncome'
+					})
+				}, 500)
 			},
 			handleStudentSet() {
 				uni.showToast({

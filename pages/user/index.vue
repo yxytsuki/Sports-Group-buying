@@ -35,10 +35,16 @@
 			</view>
 		</view>
 		<view class="user-content-bottom">
-			<view class="user-content-menu" v-for="item in 7" :key="item">
-				<image src="/static/logo.png" class="user-menu-icon"></image>
+			<view class="user-content-menu" @click="jumpCollected">
+				<image src="/static/icon/collected.png" class="user-menu-icon"></image>
 				<view class="user-menu-title">
-					我的订单
+					我的收藏
+				</view>
+			</view>
+			<view class="user-content-menu" @click="jumpModify">
+				<image src="/static/icon/modify.png" class="user-menu-icon"></image>
+				<view class="user-menu-title">
+					修改信息
 				</view>
 			</view>
 		</view>
@@ -198,6 +204,20 @@
 						})
 					})
 				}
+			},
+			jumpCollected() {
+				this.timer = setTimeout(() => {
+					uni.navigateTo({
+						url: "/pages/collected/collected"
+					})
+				}, 500)
+			},
+			jumpModify() {
+				this.timer = setTimeout(() => {
+					uni.navigateTo({
+						url: "/pages/modify/modify"
+					})
+				}, 500)
 			}
 
 		}

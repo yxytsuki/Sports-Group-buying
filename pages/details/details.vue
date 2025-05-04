@@ -30,9 +30,17 @@
 			</view>
 			<view class="details-content-direction">
 				<view>
-					<view class="details-direction-txt" v-for="item in 4" :key="item">
+					<view class="details-direction-txt">
+						<uni-icons type="map-pin-ellipse" class="detail-direction-icon"></uni-icons>
+						<span class="detail-direction-txt">{{`上课时间： 10:00~12:00`}}</span>
+					</view>
+					<view class="details-direction-txt">
 						<uni-icons type="map-pin-ellipse" class="detail-direction-icon"></uni-icons>
 						<span class="detail-direction-txt">{{`上课社区： ${courseDetail.adress}`}}</span>
+					</view>
+					<view class="details-direction-txt">
+						<uni-icons type="map-pin-ellipse" class="detail-direction-icon"></uni-icons>
+						<span class="detail-direction-txt">{{`上课地点： ${courseDetail.adressDetail}`}}</span>
 					</view>
 				</view>
 				<view class="details-direction-action">
