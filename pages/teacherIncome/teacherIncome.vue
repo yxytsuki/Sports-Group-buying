@@ -216,8 +216,6 @@
 						height: canvasHeight,
 						devicePixelRatio: dpr
 					})
-					// 设置默认缩放比例
-					const scale = 0.4
 					chart.setOption({
 						...this.getChartOption()
 					})

@@ -90,7 +90,7 @@
 						拼班说明:
 					</view>
 					<view class="details-txt-body">
-						<p class="details-txt-txt">{{courseDetail.courseDesc}}</p>
+						<p v-html="courseDetail.courseDesc" class="details-txt-txt"></p>
 					</view>
 				</view>
 			</view>
@@ -106,7 +106,7 @@
 						课程简介:
 					</view>
 					<view class="details-txt-body">
-						<p class="details-txt-txt">{{courseDetail.courseMsg}}</p>
+						<p v-html="courseDetail.courseMsg" class="details-txt-txt"></p>
 					</view>
 				</view>
 			</view>

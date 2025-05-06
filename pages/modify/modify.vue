@@ -3,7 +3,7 @@
 		<uni-forms ref="form" :modelValue="formData">
 			<!-- 昵称 -->
 			<uni-forms-item label="昵称" name="nickName">
-				<uni-easyinput v-model="formData.nickName" placeholder="请输入昵称" />
+				<uni-easyinput maxlength="20" v-model="formData.nickName" placeholder="请输入昵称" />
 			</uni-forms-item>
 			<!-- 头像 -->
 			<uni-forms-item label="头像" name="avatar">
@@ -64,8 +64,8 @@
 								errorMessage: '请输入昵称'
 							},
 							{
-								maxLength: 20,
-								errorMessage: '课程名称最多不超过20字符',
+								maxLength: 10,
+								errorMessage: '昵称最多不超过10字符',
 							}
 						],
 					},
@@ -96,11 +96,11 @@
 			// 选择图片
 			chooseImage() {
 				uni.chooseImage({
-					count: 1,
-					sizeType: ['compressed'],
-					sourceType: ['album', 'camera'],
+					count: 1, //允许选择1张照片
+					sizeType: ['compressed'], //压缩图片
+					sourceType: ['album', 'camera'], //可从相册或相机选择
 					success: (res) => {
-						this.formData.avatar = res.tempFilePaths[0]
+						this.formData.avatar = res.tempFilePaths[0] //临时路径赋值给表单
 					}
 				})
 			},

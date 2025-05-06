@@ -142,7 +142,7 @@
 					coverImage: {
 						rules: [{
 							required: true,
-							errorMessage: '请输入课程背景'
+							errorMessage: '请上传课程背景'
 						}]
 					},
 					price: {
@@ -240,6 +240,7 @@
 		},
 		computed: {
 			displayTime() {
+				console.log(this.selectedStartTime)
 				if (this.selectedStartTime && this.selectedStartTime.length === 3) {
 					this.formData.dailyStartTime = this.selectedStartTime.join(':')
 				}

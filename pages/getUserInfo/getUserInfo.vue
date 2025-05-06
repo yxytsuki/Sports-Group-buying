@@ -1,6 +1,6 @@
 <template>
 	<view class="login-content">
-		<image src="/static/logo.png" class="login-background-image"></image>
+		<image src="/static/icon/ball.png" class="login-background-image"></image>
 		<view class="login-phoneNumber-input">
 			<uni-easyinput type="number" value="phone" @input="getPhoneNumber" @clear="clear" style="font-size: 16rpx;"
 				maxlength="11" class="login-phoneNumber-input">

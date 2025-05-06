@@ -29,7 +29,7 @@
 				</view>
 				<view class="detail-info">
 					<view class="detail-avatar">
-						<image class="detail-avatar" :src="currentStudent.avatar" mode="aspectFill"></image>
+						<image class="detail-avatar" :src="currentStudent.avator" mode="aspectFill"></image>
 					</view>
 					<view class="detail-item">
 						<text class="label">昵称：</text>
@@ -63,17 +63,26 @@
 				searchKeyword: '',
 				studentList: [{
 					id: '1',
-					avator: '/static/logo.png',
+					avator: 'https://tse3-mm.cn.bing.net/th/id/OIP-C.DKmpcLgUKomMwmU8B4gbpAAAAA?w=191&h=191&c=7&r=0&o=7&cb=iwp1&dpr=1.5&pid=1.7&rm=3',
 					nickName: '张三',
-					course: '篮球',
+					course: '篮球培训班',
 					phone: '13867675656',
 					studentId: '1001',
 					enrollDate: '2023-01-15'
 				}],
-				currentStudent: null
+				currentStudent: {
+					id: '1',
+					avator: 'https://tse3-mm.cn.bing.net/th/id/OIP-C.DKmpcLgUKomMwmU8B4gbpAAAAA?w=191&h=191&c=7&r=0&o=7&cb=iwp1&dpr=1.5&pid=1.7&rm=3',
+					nickName: '张三',
+					course: '篮球培训班',
+					phone: '13867675656',
+					studentId: '1001',
+					enrollDate: '2023-01-15'
+				}
 
 			}
 		},
+
 		created() {
 			// 创建防抖函数（500ms延迟）
 			this.debouncedInput = debounce(this.handleInput, 500);
