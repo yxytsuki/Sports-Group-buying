@@ -102,6 +102,20 @@
 			"style": {
 				"navigationBarTitleText": "收入明细"
 			}
+		},
+		{
+			"path" : "pages/newStudent/newStudent",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/adminStudent/adminStudent",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 
 

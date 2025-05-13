@@ -1,0 +1,160 @@
+<template>
+	<view class="public-container">
+		<uni-forms ref="form" :modelValue="formData">
+			<!-- ID -->
+			<uni-forms-item label="学员id" name="stuId" required="true">
+				<uni-easyinput maxlength="4" v-model="formData.stuId" placeholder="请输入学员id" />
+			</uni-forms-item>
+			<!-- 昵称 -->
+			<uni-forms-item label="昵称" name="nickName">
+				<uni-easyinput maxlength="20" v-model="formData.nickName" placeholder="请输入学员昵称" />
+			</uni-forms-item>
+			<!-- 头像 -->
+			<uni-forms-item label="学员头像" name="avatar">
+				<view class="image-upload">
+					<image v-if="formData.avatar" :src="formData.avatar" mode="aspectFill" class="preview-image">
+					</image>
+					<view v-else class="upload-btn" @click="chooseImage">{{formData.avatar?'更换图片':'上传图片'}}</view>
+				</view>
+			</uni-forms-item>
+			<!-- 支付密码 -->
+			<uni-forms-item label="支付密码" name="password" required="true">
+				<uni-easyinput v-model="formData.password" maxlength="6" type="password" placeholder="请输入学员支付密码"
+					@input="handleInputPassword" />
+				<view v-if="isshowError" class="password-error">
+					密码格式错误
+				</view>
+
+			</uni-forms-item>
+			<!-- 支付密码 -->
+			<uni-forms-item label="余额" name="amount" required="true">
+				<uni-easyinput v-model="formData.amount" placeholder="请输入学员余额" @input="handleInputPassword" />
+				<view v-if="isshowError" class="password-error">
+					请输入正确格式
+				</view>
+
+			</uni-forms-item>
+			<!-- 个人介绍 -->
+			<uni-forms-item label="学员介绍" name="personDesc">
+				<uni-easyinput type="textarea" v-model="formData.personDesc" placeholder="请输入学员介绍" />
+
+			</uni-forms-item>
+			<!-- 提交按钮 -->
+			<view class="submit-btn">
+				<button type="primary" @click="submitForm">提交</button>
+			</view>
+		</uni-forms>
+
+
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				formData: {
+					stuId: '',
+					nickName: '',
+					personDesc: '',
+					password: '',
+					confirmPassword: '',
+					avatar: '',
+					amount: '',
+					isshowError: false,
+					isconfirm: false
+				},
+				rules: {
+					nickName: {
+						rules: [{
+								'required': false,
+								errorMessage: '请输入昵称'
+							},
+							{
+								maxLength: 10,
+								errorMessage: '昵称最多不超过10字符',
+							}
+						],
+					},
+					personDesc: {
+						rules: [{
+							required: false,
+							errorMessage: '请输入个人介绍'
+						}]
+					},
+					password: {
+						rules: [{
+								required: false,
+								errorMessage: '请输入支付密码'
+							},
+							{
+								maxLength: 6,
+								errorMessage: '密码最多不超过6字符',
+							}
+						]
+					},
+
+				}
+
+
+			}
+		},
+		methods: {
+			// 选择图片
+			chooseImage() {
+				uni.chooseImage({
+					count: 1, //允许选择1张照片
+					sizeType: ['compressed'], //压缩图片
+					sourceType: ['album', 'camera'], //可从相册或相机选择
+					success: (res) => {
+						this.formData.avatar = res.tempFilePaths[0] //临时路径赋值给表单
+					}
+				})
+			},
+			// 密码校验
+			isvalidator(password) {
+				const regex = /^\d{6}$/;
+				if (!regex.test(password)) {
+					this.isshowError = true
+				} else {
+					this.isshowError = false
+				}
+			},
+			isvalidatorConfirmPassword(password) {
+				if (password !== this.formData.password) {
+					this.isconfirm = true
+				} else {
+					this.isconfirm = false
+				}
+			},
+			// 输入
+			handleInputPassword(e) {
+				this.isvalidator(e)
+			},
+			handleInput(e) {
+				this.isvalidatorConfirmPassword(e)
+			},
+			// 提交表单
+			submitForm() {
+				this.$refs.form.validate().then(res => {
+					console.log('表单数据', this.formData)
+					uni.showToast({
+						title: '提交成功',
+						icon: 'success'
+					})
+					uni.navigateTo({
+						url: 'pages/myClass/myClass'
+					})
+				}).catch(err => {
+					console.log('表单错误', err)
+				})
+			}
+
+
+		}
+	}
+</script>
+
+<style>
+	@import url("newStudent.css");
+</style>

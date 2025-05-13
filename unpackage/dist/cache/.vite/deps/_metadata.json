@@ -1,110 +1,29 @@
 {
-  "hash": "9f884ff3",
+  "hash": "95c33d9b",
   "configHash": "8cae1893",
-  "lockfileHash": "2e739ee9",
-  "browserHash": "63b8502a",
+  "lockfileHash": "db3221e0",
+  "browserHash": "659c1034",
   "optimized": {
-    "axios": {
-      "src": "../../../../../../../../node_modules/axios/index.js",
-      "file": "axios.js",
-      "fileHash": "7612a48d",
-      "needsInterop": false
-    },
-    "axios-adapter-uniapp": {
-      "src": "../../../../../node_modules/axios-adapter-uniapp/index.js",
-      "file": "axios-adapter-uniapp.js",
-      "fileHash": "337d3c56",
-      "needsInterop": true
-    },
     "uni-axios": {
       "src": "../../../../../node_modules/uni-axios/index.js",
       "file": "uni-axios.js",
-      "fileHash": "997c6e54",
+      "fileHash": "e32c0b1e",
       "needsInterop": true
+    },
+    "axios": {
+      "src": "../../../../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "804d8689",
+      "needsInterop": false
     },
     "lodash": {
       "src": "../../../../../node_modules/lodash/lodash.js",
       "file": "lodash.js",
-      "fileHash": "f12c384b",
+      "fileHash": "eddb8b00",
       "needsInterop": true
-    },
-    "echarts": {
-      "src": "../../../../../node_modules/echarts/index.js",
-      "file": "echarts.js",
-      "fileHash": "179a2aa0",
-      "needsInterop": false
-    },
-    "echarts/core": {
-      "src": "../../../../../node_modules/echarts/core.js",
-      "file": "echarts_core.js",
-      "fileHash": "16931a24",
-      "needsInterop": false
-    },
-    "echarts/charts": {
-      "src": "../../../../../node_modules/echarts/charts.js",
-      "file": "echarts_charts.js",
-      "fileHash": "a66a28b6",
-      "needsInterop": false
-    },
-    "echarts/components": {
-      "src": "../../../../../node_modules/echarts/components.js",
-      "file": "echarts_components.js",
-      "fileHash": "f8944d16",
-      "needsInterop": false
-    },
-    "echarts/features": {
-      "src": "../../../../../node_modules/echarts/features.js",
-      "file": "echarts_features.js",
-      "fileHash": "8becec93",
-      "needsInterop": false
-    },
-    "echarts/renderers": {
-      "src": "../../../../../node_modules/echarts/renderers.js",
-      "file": "echarts_renderers.js",
-      "fileHash": "0dd714c7",
-      "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-TQQJBZDG": {
-      "file": "chunk-TQQJBZDG.js"
-    },
-    "chunk-PCFLDWMC": {
-      "file": "chunk-PCFLDWMC.js"
-    },
-    "chunk-AVS7QASD": {
-      "file": "chunk-AVS7QASD.js"
-    },
-    "chunk-6AG2K7S7": {
-      "file": "chunk-6AG2K7S7.js"
-    },
-    "chunk-BUGC7BSF": {
-      "file": "chunk-BUGC7BSF.js"
-    },
-    "chunk-OCWUIWRI": {
-      "file": "chunk-OCWUIWRI.js"
-    },
-    "chunk-5D77ZRDO": {
-      "file": "chunk-5D77ZRDO.js"
-    },
-    "chunk-RM6OOLOO": {
-      "file": "chunk-RM6OOLOO.js"
-    },
-    "chunk-TYXOLEAJ": {
-      "file": "chunk-TYXOLEAJ.js"
-    },
-    "chunk-6WH7P7H5": {
-      "file": "chunk-6WH7P7H5.js"
-    },
-    "chunk-AJAFJJW2": {
-      "file": "chunk-AJAFJJW2.js"
-    },
-    "chunk-TKSSROFC": {
-      "file": "chunk-TKSSROFC.js"
-    },
-    "chunk-IR2C7IL6": {
-      "file": "chunk-IR2C7IL6.js"
-    },
     "chunk-P2LSHJDD": {
       "file": "chunk-P2LSHJDD.js"
     }

@@ -54,7 +54,6 @@
 <script>
 	import CardItem from '@/components/cartItem/cartItem.vue'
 	import {
-		getContentList,
 		getFilterData
 	} from '@/api/index.js'
 
@@ -77,9 +76,77 @@
 		},
 		onReady() {
 			this.getContentList()
+
+		},
+		onLoad() {
+			uni.showLoading({
+				title: '加载中...'
+			});
+
+			uni.request({
+				url: 'http://192.168.149.38:3000/api/pay',
+				method: 'POST',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				data: {
+					orderId: 'o1002', // 替换为真实订单 ID
+					payPassword: '123456' // 替换为实际支付密码
+				},
+				success: (res) => {
+					if (res.data.status === 200 && res.data.data.isTrade) {
+						console.log(res)
+						uni.showToast({
+							title: '支付成功',
+							icon: 'success'
+						});
+					} else {
+						console.log(res)
+						uni.showToast({
+							title: '支付失败',
+							icon: 'none'
+						});
+					}
+					console.log('支付返回结果：', res.data);
+				},
+				fail: (err) => {
+					uni.showToast({
+						title: '请求失败',
+						icon: 'none'
+					});
+					console.error('支付请求失败：', err);
+				}
+			});
+
+
+
+
 		},
 		methods: {
 			async onClickItem(e) {
+				uni.request({
+					url: 'http://192.168.137.1:3000/api/admin/logout', // 示例：退出登录
+					method: 'POST',
+					header: {
+						Authorization: 'Bearer ' +
+							'pH_Mdx12QPkRXgrDvuqhPj5QcwZVUC3pylyCPE' // 在 header 中加 token
+					},
+					success: (res) => {
+						if (res.data.status === 200) {
+							uni.removeStorageSync('adminToken'); // 清除 token
+							uni.showToast({
+								title: '退出成功'
+							});
+						} else {
+							uni.showToast({
+								title: res.data.desc,
+								icon: 'none'
+							});
+						}
+					}
+				});
+
+
 				if (this.current != e.currentIndex) {
 					this.current = e.currentIndex;
 					const filterData = await getFilterData(this.current, this.positionCurrent)
@@ -110,21 +177,9 @@
 			},
 			async getContentList() {
 				try {
-					const res = await getContentList()
 					const filterRes = await getFilterData(this.current, this.positionCurrent)
-					console.log(res)
 					console.log(filterRes);
-					const {
-						data
-					} = res
-					console.log(filterRes);
-					const {
-						bannerList,
-						cardItemList
-					} = data
-					this.banner = bannerList
-					this.filterList = filterRes?.data?.filterItems
-					this.position = data?.position
+
 				} catch (err) {
 					this.banner = [
 						'/static/resource/images/banner/banner1.jpg',

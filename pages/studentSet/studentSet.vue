@@ -63,8 +63,8 @@
 				searchKeyword: '',
 				studentList: [{
 					id: '1',
-					avator: 'https://tse3-mm.cn.bing.net/th/id/OIP-C.DKmpcLgUKomMwmU8B4gbpAAAAA?w=191&h=191&c=7&r=0&o=7&cb=iwp1&dpr=1.5&pid=1.7&rm=3',
-					nickName: '张三',
+					avator: 'https://img1.baidu.com/it/u=3082600848,2377791971&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500',
+					nickName: '错雅鑫',
 					course: '篮球培训班',
 					phone: '13867675656',
 					studentId: '1001',
