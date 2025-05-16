@@ -1,5 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+require("../../store/user.js");
+const utils_getUserInfo = require("../../utils/getUserInfo.js");
 const _sfc_main = {
   props: {
     course: {
@@ -18,40 +20,56 @@ const _sfc_main = {
   },
   methods: {
     jumpPay(id) {
-      if (this.course.isRunning) {
-        common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:60", id);
-        common_vendor.index.showToast({
-          title: "跳转中...",
-          icon: "loading",
-          mask: true,
-          duration: 500
-        });
-        this.timer = setTimeout(() => {
-          common_vendor.index.navigateTo({
-            url: `/pages/pay/pay?courseId=${id}`
+      const {
+        isLogin
+      } = utils_getUserInfo.useAuth();
+      if (!isLogin()) {
+        common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:69", "未登录，已跳转");
+      } else {
+        common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:71", "已登录，继续执行业务逻辑");
+        if (this.course.isRunning) {
+          common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:73", id);
+          common_vendor.index.showToast({
+            title: "跳转中...",
+            icon: "loading",
+            mask: true,
+            duration: 500
           });
-        }, 500);
+          this.timer = setTimeout(() => {
+            common_vendor.index.navigateTo({
+              url: `/pages/pay/pay?courseId=${id}`
+            });
+          }, 500);
+        }
       }
     },
     jumpDetails(id) {
-      common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:76", id);
-      if (this.course.isRunning) {
-        common_vendor.index.showToast({
-          title: "跳转中...",
-          icon: "loading",
-          mask: true,
-          duration: 500
-        });
-        this.timer = setTimeout(() => {
-          common_vendor.index.navigateTo({
-            url: `/pages/details/details?id=${id}`
+      common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:91", id);
+      const {
+        isLogin
+      } = utils_getUserInfo.useAuth();
+      if (!isLogin()) {
+        common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:96", "未登录，已跳转");
+      } else {
+        common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:98", "已登录，继续执行业务逻辑");
+        if (this.course.isRunning) {
+          common_vendor.index.showToast({
+            title: "跳转中...",
+            icon: "loading",
+            mask: true,
+            duration: 500
           });
-        }, 500);
+          this.timer = setTimeout(() => {
+            common_vendor.index.navigateTo({
+              url: `/pages/details/details?id=${id}`
+            });
+          }, 500);
+        }
       }
     }
   },
   destroyed() {
-    common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:94", 11);
+    common_vendor.index.__f__("log", "at components/cartItem/cartItem.vue:118", 11);
     clearTimeout(this.timer);
   }
 };

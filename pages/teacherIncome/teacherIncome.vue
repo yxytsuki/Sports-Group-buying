@@ -94,6 +94,12 @@
 	import {
 		CanvasRenderer
 	} from 'echarts/renderers';
+	import {
+		getTeacherIncome
+	} from '../../api/teacher';
+	import {
+		useUserStore
+	} from '../../store/user';
 
 	// 注册必须的组件
 	echarts.use([
@@ -130,6 +136,15 @@
 
 			}
 		},
+		async created() {
+			const res = await getTeacherIncome({
+				teacher_id: useUserStore().userInfo.user_id
+			})
+			console.log('初始化', res)
+			this.weekData.actualData = [...res?.weeklyIncome] || []
+			this.dayData.actualData = [...res?.dailyIncome] || []
+			this.updateChart();
+		},
 		mounted() {
 			this.initChart()
 		},
@@ -155,29 +170,37 @@
 			summaryData() {
 				if (this.viewMode === 'week') {
 					return this.weekData.xAxis.map((period, index) => {
-						const actual = this.weekData.actualData[index]
-						const growth = index === 0 ? 0 : Math.round(((actual - this.weekData.actualData[index -
-							1]) / this.weekData.actualData[index - 1]) * 100)
+						const actual = this.weekData.actualData[index];
+						const prev = this.weekData.actualData[index - 1];
+						let growth = 0;
+						if (index !== 0 && prev && prev !== 0) {
+							growth = Math.round(((actual - prev) / prev) * 100);
+						}
 						return {
 							period,
 							actual,
 							growth
 						}
-					})
+					});
 				} else {
-					const groups = []
+					const groups = [];
 					for (let i = 0; i < 30; i += 6) {
-						const acturalSum = this.dayData.actualData.slice(i, i + 6).reduce((a, b) => a + b, 0)
+						const acturalSum = this.dayData.actualData.slice(i, i + 6).reduce((a, b) => a + b, 0);
+						const prevSum = i === 0 ? null : groups[groups.length - 1].actual;
+						let growth = 0;
+						if (prevSum && prevSum !== 0) {
+							growth = Math.round(((acturalSum - prevSum) / prevSum) * 100);
+						}
 						groups.push({
-							period: `${i+1}-${Math.min(i+6,30)}日`,
+							period: `${i + 1}-${Math.min(i + 6, 30)}日`,
 							actual: acturalSum,
-							growth: i === 0 ? 0 : Math.round(((acturalSum - groups[groups.length - 1]
-								.actual) / groups[groups.length - 1].actual) * 100)
-						})
+							growth: i === 0 ? 0 : growth
+						});
 					}
-					return groups
+					return groups;
 				}
-			},
+			}
+
 
 		},
 		methods: {

@@ -1,9 +1,20 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_details = require("../../api/details.js");
+const store_user = require("../../store/user.js");
+const utils_getUserInfo = require("../../utils/getUserInfo.js");
 const _sfc_main = {
   onLoad(options) {
     this.getContentList(options.id);
+    this.courseId = options.id;
+    const {
+      isLogin
+    } = utils_getUserInfo.useAuth();
+    if (!isLogin()) {
+      common_vendor.index.__f__("log", "at pages/details/details.vue:160", "未登录，已跳转");
+    } else {
+      common_vendor.index.__f__("log", "at pages/details/details.vue:162", "已登录，继续执行业务逻辑");
+    }
   },
   data() {
     return {
@@ -11,8 +22,10 @@ const _sfc_main = {
       studentsNumber: 0,
       startTime: "",
       endTime: "",
+      courseId: "",
       weekNumber: 0,
-      timer: null
+      timer: null,
+      user_id: store_user.useUserStore().userInfo.user_id
     };
   },
   onUnload() {
@@ -32,37 +45,39 @@ const _sfc_main = {
   methods: {
     async getContentList(courseId) {
       var _a, _b, _c;
-      const res = await api_details.getCourseDetail(courseId);
-      const {
-        data
-      } = res;
+      const data = await api_details.getCourseDetail({
+        courseId,
+        userId: this.user_id
+      });
       this.courseDetail = data;
-      common_vendor.index.__f__("log", "at pages/details/details.vue:172", data);
+      common_vendor.index.__f__("log", "at pages/details/details.vue:200", this.courseDetail);
       this.studentsNumber = data == null ? void 0 : data.students.length;
       this.startTime = (_a = data == null ? void 0 : data.time) == null ? void 0 : _a.startTime;
       this.endTime = (_b = data == null ? void 0 : data.time) == null ? void 0 : _b.endTime;
       this.weekNumber = (_c = data == null ? void 0 : data.time) == null ? void 0 : _c.day.length;
     },
     async handleCollected() {
-      var _a;
-      const res = await api_details.collected(this.courseDetail.courseId, this.courseDetail.iscollected);
-      common_vendor.index.__f__("log", "at pages/details/details.vue:184", res);
-      if (this.courseDetail.courseId) {
+      const res = await api_details.collected({
+        userId: this.user_id,
+        courseId: this.courseId
+      });
+      common_vendor.index.__f__("log", "at pages/details/details.vue:215", res);
+      if (res == null ? void 0 : res.isCollected) {
         common_vendor.index.showToast({
-          title: res.desc,
-          icon: "error",
+          title: "收藏成功",
+          icon: "success",
           mask: true,
           duration: 500
         });
       } else {
         common_vendor.index.showToast({
-          title: res.desc,
-          icon: "success",
+          title: "收藏失败",
+          icon: "error",
           mask: true,
           duration: 500
         });
       }
-      this.courseDetail.iscollected = (_a = res == null ? void 0 : res.data) == null ? void 0 : _a.isCollected;
+      this.courseDetail.iscollected = res == null ? void 0 : res.isCollected;
     },
     handleJump() {
     },
@@ -128,56 +143,58 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       column: 4,
       highlight: true
     }),
-    f: common_vendor.f(4, (item, k0, i0) => {
-      return {
-        a: "2c0884d4-2-" + i0,
-        b: item
-      };
-    }),
-    g: common_vendor.p({
+    f: common_vendor.p({
       type: "map-pin-ellipse"
     }),
-    h: common_vendor.t(`上课社区： ${$data.courseDetail.adress}`),
-    i: common_vendor.o($options.handleJump),
+    g: common_vendor.t(`上课时间： 10:00~12:00`),
+    h: common_vendor.p({
+      type: "map-pin-ellipse"
+    }),
+    i: common_vendor.t(`上课社区： ${$data.courseDetail.address}`),
     j: common_vendor.p({
+      type: "map-pin-ellipse"
+    }),
+    k: common_vendor.t(`上课地点： ${$data.courseDetail.adressDetail}`),
+    l: common_vendor.o($options.handleJump),
+    m: common_vendor.p({
       type: "paperplane",
       size: "36"
     }),
-    k: common_vendor.t(`￥${$data.courseDetail.coursePrice}/节`),
-    l: common_vendor.t(`${$data.courseDetail.totalNumber}人班`),
-    m: common_vendor.t(`满${$data.courseDetail.totalNumber}人成班，剩余`),
-    n: common_vendor.t($data.courseDetail.totalNumber - $data.studentsNumber),
-    o: common_vendor.f($data.courseDetail.students, (item, index, i0) => {
+    n: common_vendor.t(`￥${$data.courseDetail.coursePrice}/节`),
+    o: common_vendor.t(`${$data.courseDetail.totalNumber}人班`),
+    p: common_vendor.t(`满${$data.courseDetail.totalNumber}人成班，剩余`),
+    q: common_vendor.t($data.courseDetail.totalNumber - $data.studentsNumber),
+    r: common_vendor.f($data.courseDetail.students, (item, index, i0) => {
       return {
         a: item.avator,
         b: item.studentId
       };
     }),
-    p: common_vendor.t($data.courseDetail.courseDesc),
-    q: common_vendor.t($data.courseDetail.courseMsg),
-    r: common_vendor.o($options.handleShare),
-    s: common_vendor.p({
+    s: $data.courseDetail.courseDesc,
+    t: $data.courseDetail.courseMsg,
+    v: common_vendor.o($options.handleShare),
+    w: common_vendor.p({
       type: "undo",
       size: "30"
     }),
-    t: !$data.courseDetail.iscollected
+    x: !$data.courseDetail.iscollected
   }, !$data.courseDetail.iscollected ? {
-    v: common_vendor.o($options.handleCollected),
-    w: common_vendor.p({
+    y: common_vendor.o($options.handleCollected),
+    z: common_vendor.p({
       type: "star",
       size: "30"
     })
   } : {
-    x: common_vendor.o($options.handleCollected),
-    y: common_vendor.p({
+    A: common_vendor.o($options.handleCollected),
+    B: common_vendor.p({
       type: "star-filled",
       size: "30",
       color: "#ff7357"
     })
   }, {
-    z: common_vendor.o(($event) => $options.goPay($data.courseDetail.courseId)),
-    A: common_vendor.sr("share", "2c0884d4-7"),
-    B: common_vendor.p({
+    C: common_vendor.o(($event) => $options.goPay($data.courseId)),
+    D: common_vendor.sr("share", "2c0884d4-9"),
+    E: common_vendor.p({
       type: "share",
       safeArea: true,
       backgroundColor: "#fff"

@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/sql.js');
-const Course = require('../models/Course');
 
-// 统一时间戳或字符串 → Date 对象
+// 时间处理工具
 function safeDate(input) {
 	const date = new Date(Number(input));
 	if (!isNaN(date)) return date;
@@ -18,12 +17,9 @@ function pad(n) {
 function formatFullTime(ts) {
 	const date = safeDate(ts);
 	if (!date) return '';
-	const y = date.getFullYear();
-	const m = pad(date.getMonth() + 1);
-	const d = pad(date.getDate());
 	const h = pad(date.getHours());
 	const min = pad(date.getMinutes());
-	return `${y}/${m}/${d} ${h}:${min}`;
+	return `${h}:${min}`;
 }
 
 function formatDate(ts) {
@@ -44,7 +40,8 @@ function formatDuring(startTs, endTs) {
 router.get('/api/index_list/filterdata', async function(req, res) {
 	const current = parseInt(req.query.current) || 0;
 	const positionCurrent = parseInt(req.query.positionCurrent) || 0;
-
+	console.log('后台')
+	console.log(current, positionCurrent)
 	const distanceCondition = current === 0 ? 'distance <= 3' : 'distance >= 3';
 	let isRunningCondition = '';
 	if (positionCurrent === 1) {
@@ -55,23 +52,19 @@ router.get('/api/index_list/filterdata', async function(req, res) {
 
 	const sql = `
     SELECT 
-      c.course_id AS courseId,
+      c.course_id,
       c.title, 
-      c.background_image AS backgroundImage,
-      c.address, 
-      c.address_detail AS adressDetail,
-      c.class_number AS classNumber, 
-      IFNULL(cs.currentNumber, 0) AS currentNumber,
-      c.total_number AS totalNumber, 
-      c.is_running AS isRunning, 
+      c.background_image,
+      c.address,
+      c.class_number,
+      c.total_number,
+      IFNULL(cs.currentNumber, 0) AS current_number,
+      c.is_running,
       c.distance,
-      c.start_time AS startTime,
-      c.end_time AS endTime,
-      c.week_day AS day,
-      c.teacher_name AS teacherName,
-      c.course_price AS coursePrice,
-      c.course_desc AS courseDesc,
-      c.course_msg AS courseMsg
+      c.start_time,
+      c.end_time,
+      c.week_day,
+      c.teacher_name
     FROM courses c
     LEFT JOIN (
       SELECT course_id, COUNT(*) AS currentNumber
@@ -84,22 +77,30 @@ router.get('/api/index_list/filterdata', async function(req, res) {
 	try {
 		const [rows] = await db.query(sql);
 
-		const cardItemList = rows.map(row => new Course({
-			...row,
+		const filterItems = rows.map(row => ({
+			cardItemId: row.course_id,
+			isRunning: !!row.is_running,
+			distance: row.distance.toFixed(1), // 保留一位小数
+			title: row.title,
+			backgroundImage: row.background_image,
+			address: row.address,
 			time: {
-				startTime: formatFullTime(row.startTime),
-				endTime: formatFullTime(row.endTime),
-				day: row.day,
-				during: formatDuring(row.startTime, row.endTime)
-			}
+				startTime: formatFullTime(row.start_time),
+				endTime: formatFullTime(row.end_time),
+				day: row.week_day,
+				during: formatDuring(row.start_time, row.end_time)
+			},
+			classNumber: row.class_number,
+			studentNumber: row.current_number.toString(),
+			totalNumber: row.total_number.toString()
 		}));
 
 		res.json({
 			status: 200,
+			desc: "请求成功",
 			data: {
-				success: true,
+				filterItems,
 				position: "浙江理工大学",
-				cardItemList,
 				bannerList: [{
 						bannerId: "01",
 						bannerImage: "https://img0.baidu.com/it/u=1391067602,1226818753&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=303"
@@ -117,17 +118,16 @@ router.get('/api/index_list/filterdata', async function(req, res) {
 						bannerImage: "https://img2.baidu.com/it/u=1749567038,1491802467&fm=253&fmt=auto&app=138&f=JPEG?w=759&h=332"
 					}
 				]
-			},
-			desc: "请求成功"
+			}
 		});
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({
 			status: 500,
+			desc: "服务器错误",
 			data: {
 				success: false
-			},
-			desc: "服务器错误"
+			}
 		});
 	}
 });

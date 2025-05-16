@@ -14,6 +14,14 @@ if (!Math) {
   "./pages/teacher/teacher.js";
   "./pages/getUserInfo/getUserInfo.js";
   "./pages/certified/certified.js";
+  "./pages/studentSet/studentSet.js";
+  "./pages/newClass/newClass.js";
+  "./pages/collected/collected.js";
+  "./pages/modify/modify.js";
+  "./pages/teacherIncome/teacherIncome.js";
+  "./pages/newStudent/newStudent.js";
+  "./pages/adminStudent/adminStudent.js";
+  "./pages/adminIndex/adminIndex.js";
 }
 const _sfc_main = {
   onLaunch: function() {

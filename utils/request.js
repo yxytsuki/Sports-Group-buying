@@ -1,15 +1,19 @@
+import {
+	useUserStore
+} from "../store/user";
+
 function createRequest(config = {}) {
 	const defaultConfig = {
-		baseUrl: 'http://localhost:3000',
+		baseUrl: 'http://192.168.43.38:3000',
 		header: {
 			'content-type': 'application/json'
 		},
 		dataType: 'json',
 		token: true
 	};
-
+	// 请求拦截器：加上 token
 	function requestInterceptor(options) {
-		const token = uni.getStorageSync('token');
+		const token = useUserStore().userInfo.token || '';
 		if (options.token && token) {
 			options.header = {
 				...options.header,
@@ -19,17 +23,19 @@ function createRequest(config = {}) {
 		return options;
 	}
 
+	// 响应拦截器：处理状态码
 	function responseInterceptor(response) {
 		if (response.statusCode !== 200) {
 			uni.showToast({
-				title: `网络错误(${response.statusCode})`,
+				title: response.data.desc || `网络错误(${response.statusCode})`,
 				icon: 'none'
 			});
 			return Promise.reject(response);
 		}
 
 		const resData = response.data;
-		if (resData.status !== 0) {
+
+		if (resData.status !== 200) {
 			uni.showToast({
 				title: resData.desc || '请求失败',
 				icon: 'none'
@@ -40,8 +46,18 @@ function createRequest(config = {}) {
 		return resData.data;
 	}
 
-	// 通用 request 函数
+	// 通用请求函数
 	function baseRequest(method, url, data = {}, options = {}) {
+		// 处理 GET 参数拼接
+		if (method === 'GET' && options.params) {
+			const queryString = Object.keys(options.params)
+				.map(key => `${encodeURIComponent(key)}=${encodeURIComponent(options.params[key])}`)
+				.join('&');
+			if (queryString) {
+				url += (url.includes('?') ? '&' : '?') + queryString;
+			}
+		}
+
 		const finalOptions = {
 			...defaultConfig,
 			...config,
@@ -69,9 +85,17 @@ function createRequest(config = {}) {
 				...interceptedOptions,
 				success: (result) => {
 					uni.hideLoading();
-					responseInterceptor(result)
-						.then(resolve)
-						.catch(reject);
+					try {
+						const data = responseInterceptor(result);
+						resolve(data);
+					} catch (err) {
+						reject(err);
+						uni.showToast({
+							title: err.desc || '出错啦',
+							icon: "fail",
+
+						})
+					}
 				},
 				fail: (err) => {
 					uni.hideLoading();
@@ -85,7 +109,7 @@ function createRequest(config = {}) {
 		});
 	}
 
-	// 返回类似 axios 的形式
+	// 暴露统一接口
 	return {
 		get: (url, options = {}) => baseRequest('GET', url, {}, options),
 		post: (url, data = {}, options = {}) => baseRequest('POST', url, data, options),

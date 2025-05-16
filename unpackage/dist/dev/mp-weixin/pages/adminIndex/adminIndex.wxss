@@ -1,0 +1,40 @@
+
+.body.data-v-129b7eab {
+		position: absolute;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEAElEQVR4nO2WS3LaWBSGz5FBDE1P7XS1MnS6uwqvwHgFcVYQWEHwCkxWYLwC8ApCVmB6BaGrOvEwcnU705AhEuH0dwEJgcQjg1Qm+aqEju7zP/+9ukLlB/NTwDcJCKwWTOLx86lpXdWqdK9RDDY005GnNiiVK29DHYayJ3sJcBNHUXQtahc87sa07/v+5T5Cdgo4jk6uTaRFOIMOX8h2ICJDVQ0FzCzAkUBELmh7yH0GbTuP/v0l4UZoUwxZV8m6m2Zt8qDqtR/99z3ZwLzP+J2oBJIwd6OJGyOecihXIUfjZ2+SyVW8m3K53N40iMNNHsfRnYnVeGRieRCV34iItf+p8uEFUY5CAcfR7x2T6StCGnjNbVknILiN4CtC+sgl1ndYvp6JvKSIMu+GcVqEK9B2lcBtuHj8kVA2dSriOHr2meyrZPuabNuyICvCL1ee4mIoGXICyGRuPRZ+qtwHsidH0YlxE08Pzv8r/zOQBSTE0oxDKg8Rl1uKFQE0zma/l/UJZDoyJlHR3qP/oUlRCnUt6q4Jcy4oV0rSkMIvrGGVor1Z3TcyKJcrTTdRttyxnhhtl2B/H/ufUzhQLbXNpgh5P6RKGKhm1MlUakUnHu7xCkY9159HEZPQ9yvniaMppm9ZhguiGcqVggMDEzkj3AlWj/g9TwQmMEbLcJFQDjx58XUqbwjdxK8Rd8WEf+FuXRbwvCTdyZtgY9KFE9DqTHIo8yxPw8z58CT+oz61r3eEDO7dOPuVST1POk6MIpw98gvVM6hbgvqRMbBT/m/pvu9sV9WqzY5aDZPd7coZ+B0hA+jQVPp+yb8NWZLZUsTjz1SlMMklN/Tm9xfPSxAwoNGZs4t1assWENFARJcwhYybLEmPug51ryhysz74fqXG/mjtXILMJrylUUN28Ovk5GI6lZY50YAbqb2ImLlXKpWGODNKxia5rZvQDXadHWgTWM0nenwn2Q8P4MIpLgwJV0j2F/VN6nuyQLlSZoMuXpv1huuQUZuMrghT6HNDnxbhCrjRYEm6hNsPIgcDL6ySkKP4KUWF4FbP3Bm/ZmkRR+OTj8wUFLVVrhXWXFjJ6En85xk3KZUO/k4/vTs2LNZ3adcQWM/ekRPgwLIOliW7OFSV0ETqUgAiTxE5JMzBOA3G6RIyTrHQQgGOdCm2QOfbTW9LNnMmz1mfwBjFBO5AyZ7tDtW2O3Amk0nA6xWu2+kg65d8Q9qiEoiDyflL1qDtiKccyrUVBlwuB7hX1EwG4snQMxuZeCM+UoH7SKlKnayrNJuzwfYsOwU4cIN3PuqsuLGNedYtsg5lB3sJSHBC4jium9kFHySXaY3LMeSv+oiTr8+f18E+Eyd8k4DvwU8B/wPQnTE/jHIgZAAAAABJRU5ErkJggg==);
+		width: 200rpx;
+		height: 200rpx;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+}
+.container.data-v-129b7eab {
+		padding: 30rpx;
+}
+.title.data-v-129b7eab {
+		font-size: 40rpx;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 40rpx;
+}
+.menu-grid.data-v-129b7eab {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+}
+.menu-item.data-v-129b7eab {
+		width: 45%;
+		background-color: #f2f2f2;
+		border-radius: 20rpx;
+		padding: 30rpx 0;
+		text-align: center;
+		margin-bottom: 30rpx;
+		box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+.icon.data-v-129b7eab {
+		width: 80rpx;
+		height: 80rpx;
+		margin-bottom: 15rpx;
+}
+.label.data-v-129b7eab {
+		font-size: 28rpx;
+}

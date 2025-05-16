@@ -58,4 +58,11 @@
 .content .course-item {
 	margin-top: 20rpx;
 }
-.content-empty {}
+.content-empty {
+	margin-top: 200rpx;
+	margin-left: 100rpx;
+}
+.content-empty image {
+	width: 500rpx;
+	height: 500rpx;
+}

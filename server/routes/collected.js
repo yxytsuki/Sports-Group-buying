@@ -50,6 +50,9 @@ router.post('/api/getCollectCourse', async (req, res) => {
 				c.teacher_id,
 				c.background_image,
 				c.address,
+				c.distance,
+				c.course_msg,
+				c.is_running,
 				c.start_time,
 				c.end_time,
 				c.create_time AS course_create_time,
@@ -82,5 +85,6 @@ router.post('/api/getCollectCourse', async (req, res) => {
 		});
 	}
 });
+
 
 module.exports = router;

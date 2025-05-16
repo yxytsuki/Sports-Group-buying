@@ -1,21 +1,30 @@
 "use strict";
+const common_vendor = require("../common/vendor.js");
 const utils_request = require("../utils/request.js");
-const getLoginCode = () => {
-  return utils_request.instance.get("http://127.0.0.1:4523/m1/6035558-5725382-default/getLoginCode");
+const getLoginCode = (phone) => {
+  return utils_request.request.post("/api/getCode", {
+    phone
+  });
 };
 const getLogin = (param) => {
-  return utils_request.instance.post("http://127.0.0.1:4523/m1/6035558-5725382-default/getLogin", {
+  common_vendor.index.__f__("log", "at api/login.js:11", "参数");
+  common_vendor.index.__f__("log", "at api/login.js:12", param);
+  return utils_request.request.post("/api/login", {
     ...param
   });
 };
 const getUser = (userId) => {
-  return utils_request.instance.get("http://127.0.0.1:4523/m1/6035558-5725382-default/getUser", {
+  return utils_request.request.get("/api/getUser", {
     params: {
       userId
     }
   });
 };
+const getlogout = () => {
+  return utils_request.request.post("/api/logout");
+};
 exports.getLogin = getLogin;
 exports.getLoginCode = getLoginCode;
 exports.getUser = getUser;
+exports.getlogout = getlogout;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/api/login.js.map

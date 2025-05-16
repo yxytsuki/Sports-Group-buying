@@ -1,0 +1,1 @@
+<view class="container data-v-129b7eab"><view class="title data-v-129b7eab">"跃动星球"管理菜单</view><view class="menu-grid data-v-129b7eab"><view wx:for="{{a}}" wx:for-item="item" wx:key="c" class="menu-item data-v-129b7eab" bindtap="{{item.d}}"><image src="{{item.a}}" class="icon data-v-129b7eab"/><text class="label data-v-129b7eab">{{item.b}}</text></view></view></view>

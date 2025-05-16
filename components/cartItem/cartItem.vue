@@ -38,6 +38,12 @@
 </template>
 
 <script>
+	import {
+		useUserStore
+	} from '../../store/user';
+	import {
+		useAuth
+	} from '../../utils/getUserInfo';
 	export default {
 		props: {
 			course: {
@@ -56,37 +62,55 @@
 		},
 		methods: {
 			jumpPay(id) {
-				if (this.course.isRunning) {
-					console.log(id);
-					uni.showToast({
-						title: "跳转中...",
-						icon: "loading",
-						mask: true,
-						duration: 500
-					})
-					this.timer = setTimeout(() => {
-						uni.navigateTo({
-							url: `/pages/pay/pay?courseId=${id}`
+				const {
+					isLogin
+				} = useAuth()
+				if (!isLogin()) {
+					console.log('未登录，已跳转')
+				} else {
+					console.log('已登录，继续执行业务逻辑')
+					if (this.course.isRunning) {
+						console.log(id);
+						uni.showToast({
+							title: "跳转中...",
+							icon: "loading",
+							mask: true,
+							duration: 500
 						})
-					}, 500)
+						this.timer = setTimeout(() => {
+							uni.navigateTo({
+								url: `/pages/pay/pay?courseId=${id}`
+							})
+						}, 500)
+					}
 				}
+
 
 			},
 			jumpDetails(id) {
 				console.log(id);
-				if (this.course.isRunning) {
-					uni.showToast({
-						title: "跳转中...",
-						icon: "loading",
-						mask: true,
-						duration: 500
-					})
-					this.timer = setTimeout(() => {
-						uni.navigateTo({
-							url: `/pages/details/details?id=${id}`
+				const {
+					isLogin
+				} = useAuth()
+				if (!isLogin()) {
+					console.log('未登录，已跳转')
+				} else {
+					console.log('已登录，继续执行业务逻辑')
+					if (this.course.isRunning) {
+						uni.showToast({
+							title: "跳转中...",
+							icon: "loading",
+							mask: true,
+							duration: 500
 						})
-					}, 500)
+						this.timer = setTimeout(() => {
+							uni.navigateTo({
+								url: `/pages/details/details?id=${id}`
+							})
+						}, 500)
+					}
 				}
+
 
 			},
 		},

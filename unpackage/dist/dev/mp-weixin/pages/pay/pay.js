@@ -2,6 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 const api_pay = require("../../api/pay.js");
 const store_user = require("../../store/user.js");
+const utils_getUserInfo = require("../../utils/getUserInfo.js");
 const _sfc_main = {
   data() {
     return {
@@ -16,11 +17,23 @@ const _sfc_main = {
       password: "",
       timer: null,
       isclosed: true,
-      isshowError: false
+      isshowError: false,
+      user_id: store_user.useUserStore().userInfo.user_id
     };
   },
   onLoad(options) {
-    this.getContentList(options);
+    common_vendor.index.__f__("log", "at pages/pay/pay.vue:118", Object.keys(options)[0]);
+    if (Object.keys(options)[0] === "courseId") {
+      this.getCreateOrder(options.courseId);
+    }
+    const {
+      isLogin
+    } = utils_getUserInfo.useAuth();
+    if (!isLogin()) {
+      common_vendor.index.__f__("log", "at pages/pay/pay.vue:130", "未登录，已跳转");
+    } else {
+      common_vendor.index.__f__("log", "at pages/pay/pay.vue:132", "已登录，继续执行业务逻辑");
+    }
   },
   onUnload() {
     clearTimeout(this.timer);
@@ -37,27 +50,51 @@ const _sfc_main = {
     }
   },
   methods: {
-    async getContentList(param) {
-      var _a, _b, _c;
-      const res = await api_pay.getOrderDetail(param);
-      const {
-        data
-      } = res;
+    formatFullTime(ts) {
+      const date = new Date(Number(ts));
+      const y = date.getFullYear();
+      const m = (date.getMonth() + 1).toString().padStart(2, "0");
+      const d = date.getDate().toString().padStart(2, "0");
+      const h = date.getHours().toString().padStart(2, "0");
+      const min = date.getMinutes().toString().padStart(2, "0");
+      return `${y}/${m}/${d} ${h}:${min}`;
+    },
+    getNow(startTime, endTime) {
+      const now = Date.now();
+      startTime = Number(startTime);
+      endTime = Number(endTime);
+      if (now < startTime) {
+        return 0;
+      }
+      if (now > endTime) {
+        return Math.ceil((endTime - startTime) / (7 * 24 * 60 * 60 * 1e3));
+      }
+      const diff = now - startTime;
+      const weekMs = 7 * 24 * 60 * 60 * 1e3;
+      const week = Math.ceil(diff / weekMs);
+      return week;
+    },
+    async getCreateOrder(courseId) {
+      var _a, _b, _c, _d, _e;
+      common_vendor.index.__f__("log", "at pages/pay/pay.vue:179", courseId);
+      const data = await api_pay.getOrderDetail({
+        courseId,
+        userId: this.user_id
+      });
       this.orderDetail = data;
-      common_vendor.index.__f__("log", "at pages/pay/pay.vue:137", data);
-      this.startTime = (_a = data == null ? void 0 : data.time) == null ? void 0 : _a.startTime;
-      this.endTime = (_b = data == null ? void 0 : data.time) == null ? void 0 : _b.endTime;
-      this.now = (_c = data == null ? void 0 : data.time) == null ? void 0 : _c.weeks.now;
+      common_vendor.index.__f__("log", "at pages/pay/pay.vue:185", data);
+      common_vendor.index.__f__("log", "at pages/pay/pay.vue:186", (_a = data == null ? void 0 : data.time) == null ? void 0 : _a.startTime);
+      this.startTime = this.formatFullTime((_b = data == null ? void 0 : data.time) == null ? void 0 : _b.startTime);
+      this.endTime = this.formatFullTime((_c = data == null ? void 0 : data.time) == null ? void 0 : _c.endTime);
+      this.now = this.getNow((_d = data == null ? void 0 : data.time) == null ? void 0 : _d.startTime, (_e = data == null ? void 0 : data.time) == null ? void 0 : _e.endTime);
       this.studentsNumber = data == null ? void 0 : data.students.length;
-      common_vendor.index.__f__("log", "at pages/pay/pay.vue:142", this.studentsNumber);
+      common_vendor.index.__f__("log", "at pages/pay/pay.vue:191", this.studentsNumber);
     },
     toggleChecked() {
       this.ischecked = !this.ischecked;
     },
     async showLink(type) {
-      const {
-        data
-      } = await api_pay.getLinkContent();
+      const data = await api_pay.getLinkContent();
       this.linkContent = data.content;
       this.msgType = type;
       this.$refs.alertDialog.open();
@@ -76,9 +113,11 @@ const _sfc_main = {
       this.$refs.inputDialog.open();
     },
     async dialogInputConfirm() {
-      const {
-        data
-      } = await api_pay.checkPay(this.orderDetail.amount, this.password, store_user.useUserStore().userInfo.userId);
+      var _a;
+      const data = await api_pay.checkPay({
+        orderId: (_a = this.orderDetail) == null ? void 0 : _a.orderId,
+        payPassword: this.password
+      });
       if (data == null ? void 0 : data.isTrade) {
         common_vendor.index.showToast({
           title: "支付成功",
@@ -138,7 +177,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     a: common_vendor.t($data.orderDetail.title),
     b: common_vendor.t(`总周期${$options.getWeeks}期，当前第${$data.now}周`),
     c: common_vendor.t(`剩余${((_a = $data.orderDetail) == null ? void 0 : _a.totalNumber) - $data.studentsNumber}名额拼满`),
-    d: common_vendor.t((_b = $data.orderDetail) == null ? void 0 : _b.creatTime),
+    d: common_vendor.t($options.formatFullTime((_b = $data.orderDetail) == null ? void 0 : _b.creatTime)),
     e: common_vendor.p({
       type: "location",
       size: "24"

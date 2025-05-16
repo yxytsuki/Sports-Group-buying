@@ -5,6 +5,9 @@
 			<uni-forms-item label="昵称" name="nickName">
 				<uni-easyinput maxlength="20" v-model="formData.nickName" placeholder="请输入昵称" />
 			</uni-forms-item>
+			<uni-forms-item label="姓名" name="userName">
+				<uni-easyinput maxlength="10" v-model="formData.userName" placeholder="请输入姓名" />
+			</uni-forms-item>
 			<!-- 头像 -->
 			<uni-forms-item label="头像" name="avatar">
 				<view class="image-upload">
@@ -45,23 +48,44 @@
 </template>
 
 <script>
+	import {
+		addStudent
+	} from '../../api/student'
+	import {
+		useUserStore
+	} from '/store/user.js'
 	export default {
 		data() {
 			return {
+				tempAvatarPath: '', //存放头像临时路径
+				user_id: useUserStore().userInfo.user_id,
 				formData: {
 					nickName: '',
+					userName: '',
 					personDesc: '',
 					password: '',
 					confirmPassword: '',
 					avatar: '',
 					isshowError: false,
-					isconfirm: false
+					isconfirm: false,
+
 				},
 				rules: {
 					nickName: {
 						rules: [{
 								'required': false,
 								errorMessage: '请输入昵称'
+							},
+							{
+								maxLength: 10,
+								errorMessage: '昵称最多不超过10字符',
+							}
+						],
+					},
+					userName: {
+						rules: [{
+								'required': false,
+								errorMessage: '请输入姓名'
 							},
 							{
 								maxLength: 10,
@@ -92,6 +116,9 @@
 
 			}
 		},
+		onUnload() {
+			clearTimeout(this.timer)
+		},
 		methods: {
 			// 选择图片
 			chooseImage() {
@@ -100,7 +127,38 @@
 					sizeType: ['compressed'], //压缩图片
 					sourceType: ['album', 'camera'], //可从相册或相机选择
 					success: (res) => {
-						this.formData.avatar = res.tempFilePaths[0] //临时路径赋值给表单
+						const tempPath = res.tempFilePaths[0];
+						this.tempAvatarPath = tempPath;
+						// 上传到服务器
+						uni.uploadFile({
+							url: 'http://localhost:3000/api/upload', // 改成你后台实际上传接口
+							filePath: tempPath,
+							name: 'avatar', // 后端接收的字段名
+							success: (uploadRes) => {
+								const responseData = JSON.parse(uploadRes.data);
+								if (responseData.status === 200) {
+									this.formData.avatar =
+										`http://localhost:3000${responseData.url}`;
+									console.log('真实路径')
+									console.log(this.formData.avatar)
+									uni.showToast({
+										title: '上传成功',
+										icon: 'success'
+									});
+								} else {
+									uni.showToast({
+										title: '上传失败',
+										icon: 'error'
+									});
+								}
+							},
+							fail: () => {
+								uni.showToast({
+									title: '上传失败',
+									icon: 'error'
+								});
+							}
+						});
 					}
 				})
 			},
@@ -128,20 +186,35 @@
 				this.isvalidatorConfirmPassword(e)
 			},
 			// 提交表单
-			submitForm() {
-				this.$refs.form.validate().then(res => {
-					console.log('表单数据', this.formData)
+			async submitForm() {
+				try {
+					await this.$refs.form.validate(); // 等待验证通过
+
+					const res = await addStudent({
+						user_id: this.user_id,
+						user_name: this.formData.userName,
+						nickName: this.formData.nickName,
+						avatar: this.formData.avatar,
+						password: this.formData.password,
+						description: this.formData.personDesc
+					});
+
 					uni.showToast({
 						title: '提交成功',
 						icon: 'success'
-					})
-					uni.navigateTo({
-						url: 'pages/myClass/myClass'
-					})
-				}).catch(err => {
-					console.log('表单错误', err)
-				})
+					});
+					console.log('结果')
+
+					this.timer = setTimeout(() => {
+						uni.reLaunch({
+							url: '/pages/user/index'
+						});
+					}, 500)
+				} catch (err) {
+					console.log('表单错误', err);
+				}
 			}
+
 
 
 		}

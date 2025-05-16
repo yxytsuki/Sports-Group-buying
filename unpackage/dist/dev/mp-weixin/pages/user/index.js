@@ -9,7 +9,7 @@ const _sfc_main = {
       isLogin: false,
       timer: null,
       nickName: store_user.useUserStore().userInfo.nickName,
-      avator: store_user.useUserStore().userInfo.avator,
+      avator: store_user.useUserStore().userInfo.avatar,
       amount: "",
       isteacher: false,
       // 是否认证
@@ -19,15 +19,25 @@ const _sfc_main = {
   async onReady() {
     if (store_user.useUserStore().userInfo.token) {
       this.isLogin = true;
-      const {
-        data
-      } = await api_login.getUser(store_user.useUserStore().userInfo.userId);
-      common_vendor.index.__f__("log", "at pages/user/index.vue:75", data);
+      common_vendor.index.__f__("log", "at pages/user/index.vue:90", store_user.useUserStore().userInfo.userId);
+      const data = await api_login.getUser(store_user.useUserStore().userInfo.user_id);
+      common_vendor.index.__f__("log", "at pages/user/index.vue:92", data);
+      const oldUserInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+      const newUserInfo = {
+        ...oldUserInfo,
+        // 保留旧字段
+        ...data
+        // 覆盖部分字段（只更新传回来的字段）
+      };
+      localStorage.setItem("userInfo", JSON.stringify(newUserInfo));
+      store_user.useUserStore().setUserInfo(localStorage.getItem("userInfo"));
       this.amount = data.amount;
-      this.isteacher = data.isteacher;
-      this.iscertified = data.iscertified;
+      this.isteacher = data.is_teacher;
+      this.iscertified = data.is_certified;
       this.nickName = data.nickName;
-      this.avator = data.avator;
+      this.avator = data.avatar;
+      common_vendor.index.__f__("log", "at pages/user/index.vue:106", "图片");
+      common_vendor.index.__f__("log", "at pages/user/index.vue:107", this.avator);
     }
   },
   onUnload() {
@@ -50,8 +60,17 @@ const _sfc_main = {
         }, 500);
       }
     },
+    async logout() {
+      const res = await api_login.getlogout();
+      common_vendor.index.__f__("log", "at pages/user/index.vue:135", res);
+      localStorage.removeItem("userInfo");
+      common_vendor.index.navigateTo({
+        url: "/pages/getUserInfo/getUserInfo"
+      });
+    },
     joinTeacher() {
-      if (this.iscertified) {
+      if (!this.iscertified) {
+        common_vendor.index.__f__("log", "at pages/user/index.vue:143", this.iscertified);
         common_vendor.index.showToast({
           title: "跳转中...",
           icon: "loading",
@@ -147,6 +166,20 @@ const _sfc_main = {
           });
         });
       }
+    },
+    jumpCollected() {
+      this.timer = setTimeout(() => {
+        common_vendor.index.navigateTo({
+          url: "/pages/collected/collected"
+        });
+      }, 500);
+    },
+    jumpModify() {
+      this.timer = setTimeout(() => {
+        common_vendor.index.navigateTo({
+          url: "/pages/modify/modify"
+        });
+      }, 500);
     }
   }
 };
@@ -165,12 +198,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     h: common_vendor.t($data.amount)
   } : {}, {
     i: common_vendor.o((...args) => $options.joinTeacher && $options.joinTeacher(...args)),
-    j: common_vendor.f(7, (item, k0, i0) => {
-      return {
-        a: item
-      };
-    }),
-    k: common_assets._imports_0
+    j: common_assets._imports_0$1,
+    k: common_vendor.o((...args) => $options.jumpCollected && $options.jumpCollected(...args)),
+    l: common_assets._imports_1,
+    m: common_vendor.o((...args) => $options.jumpModify && $options.jumpModify(...args)),
+    n: common_assets._imports_2,
+    o: common_vendor.o((...args) => $options.logout && $options.logout(...args))
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

@@ -21,7 +21,7 @@
 				<view class="pay-details-msg">
 					<!-- txt -->
 					<view class="pay-msg-time">
-						{{orderDetail?.creatTime}}
+						{{formatFullTime(orderDetail?.creatTime)}}
 					</view>
 				</view>
 				<view class="pay-details-msg">
@@ -91,6 +91,9 @@
 	import {
 		useUserStore
 	} from '@/store/user.js'
+	import {
+		useAuth
+	} from '../../utils/getUserInfo'
 
 	export default {
 		data() {
@@ -106,12 +109,28 @@
 				password: '',
 				timer: null,
 				isclosed: true,
-				isshowError: false
+				isshowError: false,
+				user_id: useUserStore().userInfo.user_id,
 
 			}
 		},
 		onLoad(options) {
-			this.getContentList(options)
+			console.log(Object.keys(options)[0])
+			if (Object.keys(options)[0] === 'courseId') {
+				this.getCreateOrder(options.courseId)
+
+			} else {
+
+			}
+
+			const {
+				isLogin
+			} = useAuth()
+			if (!isLogin()) {
+				console.log('未登录，已跳转')
+			} else {
+				console.log('已登录，继续执行业务逻辑')
+			}
 		},
 		onUnload() {
 			clearTimeout(this.timer)
@@ -128,16 +147,46 @@
 			}
 		},
 		methods: {
-			async getContentList(param) {
-				const res = await getOrderDetail(param)
-				const {
-					data
-				} = res
+			formatFullTime(ts) {
+				const date = new Date(Number(ts));
+				const y = date.getFullYear();
+				const m = (date.getMonth() + 1).toString().padStart(2, '0');
+				const d = date.getDate().toString().padStart(2, '0');
+				const h = date.getHours().toString().padStart(2, '0');
+				const min = date.getMinutes().toString().padStart(2, '0');
+				return `${y}/${m}/${d} ${h}:${min}`;
+			},
+			getNow(startTime, endTime) {
+				const now = Date.now();
+
+				startTime = Number(startTime);
+				endTime = Number(endTime);
+
+				if (now < startTime) {
+					return 0; // 课程未开始
+				}
+				if (now > endTime) {
+					return Math.ceil((endTime - startTime) / (7 * 24 * 60 * 60 * 1000)); // 课程已结束，返回总周数
+				}
+
+				const diff = now - startTime;
+				const weekMs = 7 * 24 * 60 * 60 * 1000; // 一周的毫秒数
+
+				const week = Math.ceil(diff / weekMs);
+				return week;
+			},
+			async getCreateOrder(courseId) {
+				console.log(courseId)
+				const data = await getOrderDetail({
+					courseId: courseId,
+					userId: this.user_id
+				})
 				this.orderDetail = data
 				console.log(data);
-				this.startTime = data?.time?.startTime
-				this.endTime = data?.time?.endTime
-				this.now = data?.time?.weeks.now
+				console.log(data?.time?.startTime)
+				this.startTime = this.formatFullTime(data?.time?.startTime);
+				this.endTime = this.formatFullTime(data?.time?.endTime);
+				this.now = this.getNow(data?.time?.startTime, data?.time?.endTime)
 				this.studentsNumber = data?.students.length
 				console.log(this.studentsNumber);
 			},
@@ -145,9 +194,7 @@
 				this.ischecked = !this.ischecked
 			},
 			async showLink(type) {
-				const {
-					data
-				} = await getLinkContent()
+				const data = await getLinkContent()
 				this.linkContent = data.content
 				this.msgType = type
 				this.$refs.alertDialog.open()
@@ -168,9 +215,10 @@
 			},
 			async dialogInputConfirm() {
 				// 密码校验 支付接口（金额、用户、密码）仓库
-				const {
-					data
-				} = await checkPay(this.orderDetail.amount, this.password, useUserStore().userInfo.userId)
+				const data = await checkPay({
+					orderId: this.orderDetail?.orderId,
+					payPassword: this.password,
+				})
 				if (data?.isTrade) {
 					uni.showToast({
 						title: '支付成功',

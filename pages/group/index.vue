@@ -14,6 +14,9 @@
 </template>
 
 <script>
+	import {
+		useUserStore
+	} from '../../store/user'
 	export default {
 		data() {
 			return {
@@ -25,6 +28,16 @@
 				clearTimeout(timer)
 			},
 			jumpNewClass() {
+				console.log(useUserStore().userInfo.is_teacher)
+				if (!useUserStore().userInfo.is_teacher) {
+					uni.showToast({
+						title: "无权限",
+						icon: "none",
+						mask: true,
+						duration: 500
+					})
+					return
+				}
 				uni.showToast({
 					title: "跳转中...",
 					icon: "loading",

@@ -1,6 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const api_index = require("../../api/index.js");
+const common_assets = require("../../common/assets.js");
 const CardItem = () => "../../components/cartItem/cartItem.js";
 const _sfc_main = {
   components: {
@@ -15,7 +16,6 @@ const _sfc_main = {
       current: 0,
       banner: [],
       position: "",
-      courseList: [],
       filterList: []
     };
   },
@@ -24,60 +24,28 @@ const _sfc_main = {
   },
   methods: {
     async onClickItem(e) {
-      if (this.current != e.currentIndex) {
+      if (this.current !== e.currentIndex) {
         this.current = e.currentIndex;
-        const filterData = await api_index.getFilterData(this.current, this.positionCurrent);
-        const {
-          data
-        } = filterData;
-        const {
-          filterItems
-        } = data;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:92", data);
-        this.filterList = filterItems;
+        const filterData = await api_index.getFilterData(this.positionCurrent, this.current);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:85", "筛选");
+        common_vendor.index.__f__("log", "at pages/index/index.vue:86", filterData);
+        this.filterList = [...filterData.filterItems];
       }
     },
     async handleToggle(e) {
+      common_vendor.index.__f__("log", "at pages/index/index.vue:91", 12);
       if (this.positionCurrent != e.currentIndex) {
         this.positionCurrent = e.currentIndex;
-        const filterData = await api_index.getFilterData(this.current, this.positionCurrent);
-        const {
-          data
-        } = filterData;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:103", filterData);
-        const {
-          filterItems
-        } = data;
-        this.filterList = filterItems;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:108", this.filterList);
+        const filterData = await api_index.getFilterData(this.positionCurrent, this.current);
+        common_vendor.index.__f__("log", "at pages/index/index.vue:95", filterData);
+        this.filterList = [...filterData.filterItems];
       }
     },
     async getContentList() {
-      var _a;
-      try {
-        const res = await api_index.getContentList();
-        const filterRes = await api_index.getFilterData(this.current, this.positionCurrent);
-        common_vendor.index.__f__("log", "at pages/index/index.vue:115", res);
-        common_vendor.index.__f__("log", "at pages/index/index.vue:116", filterRes);
-        const {
-          data
-        } = res;
-        common_vendor.index.__f__("log", "at pages/index/index.vue:120", filterRes);
-        const {
-          bannerList,
-          cardItemList
-        } = data;
-        this.banner = bannerList;
-        this.filterList = (_a = filterRes == null ? void 0 : filterRes.data) == null ? void 0 : _a.filterItems;
-        this.position = data == null ? void 0 : data.position;
-      } catch (err) {
-        this.banner = [
-          "/static/resource/images/banner/banner1.jpg",
-          "/static/resource/images/banner/banner1.jpg",
-          "/static/resource/images/banner/banner1.jpg",
-          "/static/resource/images/banner/banner1.jpg"
-        ];
-      }
+      const filterRes = await api_index.getFilterData(this.current, this.positionCurrent);
+      this.banner = filterRes.bannerList;
+      this.filterList = [...filterRes.filterItems];
+      this.position = filterRes.position;
     }
   }
 };
@@ -150,6 +118,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       };
     }),
     n: $data.current === 2
+  } : {}, {
+    o: $data.filterList.length === 0
+  }, $data.filterList.length === 0 ? {
+    p: common_assets._imports_0
   } : {});
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

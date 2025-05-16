@@ -104,14 +104,32 @@
 			}
 		},
 		{
-			"path" : "pages/newStudent/newStudent",
+			"path": "pages/newStudent/newStudent",
+			"style": {
+				"navigationBarTitleText": "新增学员"
+			}
+		},
+		{
+			"path": "pages/adminStudent/adminStudent",
+			"style": {
+				"navigationBarTitleText": "学员管理"
+			}
+		},
+		{
+			"path": "pages/adminIndex/adminIndex",
+			"style": {
+				"navigationBarTitleText": "管理员首页"
+			}
+		},
+		{
+			"path" : "pages/adminTeacher/adminTeacher",
 			"style" : 
 			{
 				"navigationBarTitleText" : ""
 			}
 		},
 		{
-			"path" : "pages/adminStudent/adminStudent",
+			"path" : "pages/newTeacher/newTeacher",
 			"style" : 
 			{
 				"navigationBarTitleText" : ""

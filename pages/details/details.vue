@@ -36,7 +36,7 @@
 					</view>
 					<view class="details-direction-txt">
 						<uni-icons type="map-pin-ellipse" class="detail-direction-icon"></uni-icons>
-						<span class="detail-direction-txt">{{`上课社区： ${courseDetail.adress}`}}</span>
+						<span class="detail-direction-txt">{{`上课社区： ${courseDetail.address}`}}</span>
 					</view>
 					<view class="details-direction-txt">
 						<uni-icons type="map-pin-ellipse" class="detail-direction-icon"></uni-icons>
@@ -127,7 +127,7 @@
 					收藏
 				</view>
 			</view>
-			<view class="details-join-btn" @click="goPay(courseDetail.courseId)">
+			<view class="details-join-btn" @click="goPay(courseId)">
 				加入拼班
 			</view>
 			<uni-popup ref="share" type="share" safeArea backgroundColor="#fff">
@@ -142,9 +142,26 @@
 		getCourseDetail,
 		collected
 	} from '@/api/details.js'
+	import {
+		useUserStore
+	} from '../../store/user';
+
+	import {
+		useAuth
+	} from '@/utils/getUserInfo.js'
 	export default {
 		onLoad(options) {
 			this.getContentList(options.id)
+			this.courseId = options.id
+			const {
+				isLogin
+			} = useAuth()
+			if (!isLogin()) {
+				console.log('未登录，已跳转')
+			} else {
+				console.log('已登录，继续执行业务逻辑')
+			}
+
 		},
 		data() {
 			return {
@@ -152,8 +169,10 @@
 				studentsNumber: 0,
 				startTime: '',
 				endTime: '',
+				courseId: '',
 				weekNumber: 0,
-				timer: null
+				timer: null,
+				user_id: useUserStore().userInfo.user_id
 			}
 		},
 		onUnload() {
@@ -172,12 +191,13 @@
 		},
 		methods: {
 			async getContentList(courseId) {
-				const res = await getCourseDetail(courseId)
-				const {
-					data
-				} = res
+				const data = await getCourseDetail({
+					courseId: courseId,
+					userId: this.user_id
+				})
+
 				this.courseDetail = data
-				console.log(data);
+				console.log(this.courseDetail);
 				this.studentsNumber = data?.students.length
 				this.startTime = data?.time?.startTime
 				this.endTime = data?.time?.endTime
@@ -188,25 +208,27 @@
 				/* 
 					判断是否收藏，调用接口，传入id和当前收藏状态
 				*/
-				const res = await collected(this.courseDetail.courseId, this.courseDetail.iscollected)
+				const res = await collected({
+					userId: this.user_id,
+					courseId: this.courseId,
+				})
 				console.log(res)
-				if (this.courseDetail.courseId) {
-					// 当前已收藏 取消收藏
+				if (res?.isCollected) {
 					uni.showToast({
-						title: res.desc,
-						icon: "error",
+						title: '收藏成功',
+						icon: 'success',
 						mask: true,
 						duration: 500
 					})
 				} else {
 					uni.showToast({
-						title: res.desc,
-						icon: 'success',
+						title: '收藏失败',
+						icon: "error",
 						mask: true,
 						duration: 500
 					})
 				}
-				this.courseDetail.iscollected = res?.data?.isCollected
+				this.courseDetail.iscollected = res?.isCollected
 			},
 			handleJump() {
 				// 跳转百度地图 需要当前经度纬度 后续接口完善再做设计

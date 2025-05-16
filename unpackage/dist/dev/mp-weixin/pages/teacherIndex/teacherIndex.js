@@ -8,18 +8,21 @@ const _sfc_main = {
   data() {
     return {
       isVisible: false,
-      amount: "",
+      amount: store_user.useUserStore().userInfo.amount,
       todayIncome: "",
       todayOrder: 0,
       totalIncome: "",
       nickName: store_user.useUserStore().userInfo.nickName,
-      avator: store_user.useUserStore().userInfo.avator,
+      avator: store_user.useUserStore().userInfo.avatar,
       timer: null
     };
   },
   onReady() {
     this.getTeacher();
     this.getLocation();
+  },
+  onUnload() {
+    clearTimeout(this.timer);
   },
   methods: {
     handleVisible() {
@@ -32,10 +35,10 @@ const _sfc_main = {
       });
       dom.getRegeo({
         sucess: (res) => {
-          common_vendor.index.__f__("log", "at pages/teacherIndex/teacherIndex.vue:157", res);
+          common_vendor.index.__f__("log", "at pages/teacherIndex/teacherIndex.vue:160", res);
         },
         fail: (err) => {
-          common_vendor.index.__f__("log", "at pages/teacherIndex/teacherIndex.vue:160", err);
+          common_vendor.index.__f__("log", "at pages/teacherIndex/teacherIndex.vue:163", err);
           common_vendor.index.showToast({
             title: "获取地理位置失败",
             icon: "none"
@@ -45,24 +48,27 @@ const _sfc_main = {
     },
     // 查询教师版首页信息
     async getTeacher() {
-      const {
-        data
-      } = await api_teacher_index.getTeacherIndex();
-      const {
-        teacherMsg
-      } = data;
-      common_vendor.index.__f__("log", "at pages/teacherIndex/teacherIndex.vue:176", teacherMsg);
-      if (!(data == null ? void 0 : data.success)) {
-        common_vendor.index.showToast({
-          title: "暂无信息",
-          icon: "none"
+      const data = await api_teacher_index.getTeacherIncome({
+        teacher_id: store_user.useUserStore().userInfo.user_id
+      });
+      common_vendor.index.__f__("log", "at pages/teacherIndex/teacherIndex.vue:176", "教师收入信息", data);
+      this.amount = data == null ? void 0 : data.balance;
+      this.todayIncome = data == null ? void 0 : data.today_income;
+      this.todayOrder = data == null ? void 0 : data.today_orders;
+      this.totalIncome = data == null ? void 0 : data.total_income;
+    },
+    jumpTeacherIncome() {
+      common_vendor.index.showToast({
+        title: "跳转中...",
+        icon: "loading",
+        mask: true,
+        duration: 500
+      });
+      this.timer = setTimeout(() => {
+        common_vendor.index.navigateTo({
+          url: "/pages/teacherIncome/teacherIncome"
         });
-        return;
-      }
-      this.amount = teacherMsg == null ? void 0 : teacherMsg.amount;
-      this.todayIncome = teacherMsg == null ? void 0 : teacherMsg.todayIncome;
-      this.todayOrder = teacherMsg == null ? void 0 : teacherMsg.todayOrder;
-      this.totalIncome = teacherMsg == null ? void 0 : teacherMsg.totalIncome;
+      }, 500);
     },
     handleStudentSet() {
       common_vendor.index.showToast({
@@ -73,7 +79,20 @@ const _sfc_main = {
       });
       this.timer = setTimeout(() => {
         common_vendor.index.navigateTo({
-          url: `/pages/pay/pay?courseId=${id}`
+          url: "/pages/studentSet/studentSet"
+        });
+      }, 500);
+    },
+    handleOrderSet() {
+      common_vendor.index.showToast({
+        title: "跳转中...",
+        icon: "loading",
+        mask: true,
+        duration: 500
+      });
+      this.timer = setTimeout(() => {
+        common_vendor.index.switchTab({
+          url: "/pages/myClass/myClass"
         });
       }, 500);
     }
@@ -93,7 +112,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       type: "location-filled",
       size: "30"
     }),
-    b: common_assets._imports_0$1,
+    b: common_assets._imports_0$2,
     c: $data.avator,
     d: common_vendor.t($data.nickName),
     e: $data.isVisible
@@ -122,7 +141,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       size: "30"
     }),
     q: common_vendor.t(`${$data.amount}元`),
-    r: common_vendor.o((...args) => $options.handleStudentSet && $options.handleStudentSet(...args))
+    r: common_vendor.o((...args) => $options.jumpTeacherIncome && $options.jumpTeacherIncome(...args)),
+    s: common_vendor.o((...args) => $options.handleStudentSet && $options.handleStudentSet(...args)),
+    t: common_vendor.o((...args) => $options.handleOrderSet && $options.handleOrderSet(...args))
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

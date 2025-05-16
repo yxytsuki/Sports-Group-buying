@@ -1,1 +1,1 @@
-<view class="group-content"><image src="{{a}}" class="group-background-img"></image><view class="group-content-title"> 欢迎来到跃动星球~ </view><view class="group-content-new"><image src="{{b}}" class="group-content-icon"></image><view class="group-new-title"> 新建拼团 </view></view></view>
+<view class="group-content"><image src="{{a}}" class="group-background-img"></image><view class="group-content-title"> 欢迎来到跃动星球~ </view><view class="group-content-new"><image src="{{b}}" class="group-content-icon"></image><view class="group-new-title" bindtap="{{c}}"> 新建拼团 </view></view></view>

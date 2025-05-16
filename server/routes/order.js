@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/sql.js');
 
+// 获取筛选订单接口
 router.get('/api/getFilterOrder', async (req, res) => {
 	const {
 		userId,
@@ -10,68 +11,65 @@ router.get('/api/getFilterOrder', async (req, res) => {
 
 	if (!userId) {
 		return res.status(400).json({
-			code: 1,
-			msg: 'userId 参数缺失'
+			status: 400,
+			data: {},
+			desc: 'userId 参数缺失'
 		});
 	}
 
-	const now = Math.floor(Date.now() / 1000);
-	let condition = 'WHERE o.user_id = ?';
 	let params = [userId];
+	let condition = 'WHERE o.user_id = ?';
 
-	// 根据 current 动态设置 JOIN 和 SELECT 字段
-	let selectFields = 'o.*';
-	let joinClause = '';
-
-	switch (parseInt(current)) {
-		case 1: // 未支付
-			condition += ' AND o.is_pay = 0';
-			break;
-		case 2: // 拼班中
-			joinClause = `
-        LEFT JOIN course_weeks cw 
-          ON cw.course_id = o.course_id 
-         AND o.order_createTime BETWEEN cw.week_start_time AND cw.week_end_time
-      `;
-			condition += ' AND o.is_pay = 1 AND cw.week_end_time > ?';
-			params.push(now);
-			selectFields += ', cw.week_start_time, cw.week_end_time';
-			break;
-		case 3: // 已完成
-			joinClause = `
-        LEFT JOIN course_weeks cw 
-          ON cw.course_id = o.course_id 
-         AND o.order_createTime BETWEEN cw.week_start_time AND cw.week_end_time
-      `;
-			condition += ' AND o.is_pay = 1 AND cw.week_end_time <= ?';
-			params.push(now);
-			selectFields += ', cw.week_start_time, cw.week_end_time';
-			break;
-			// case 0 默认：全部订单，不修改
+	// 状态筛选逻辑
+	if (parseInt(current) === 1) {
+		condition += ' AND o.is_pay = 0';
+	} else if (parseInt(current) === 2) {
+		condition += ' AND o.is_pay = 1 AND o.status = "拼班中"';
+	} else if (parseInt(current) === 3) {
+		condition += ' AND o.is_pay = 1 AND o.status = "已完成"';
 	}
 
+	// 查询 SQL
 	const sql = `
-    SELECT ${selectFields}
-    FROM orders o
-    ${joinClause}
-    ${condition}
-    ORDER BY o.order_createTime DESC
-  `;
+		SELECT 
+			o.*, 
+			c.start_time AS course_start_time,
+			c.end_time AS course_end_time,
+			c.title AS course_title
+		FROM orders o
+		LEFT JOIN courses c ON o.course_id = c.course_id
+		${condition}
+		ORDER BY o.order_createTime DESC
+	`;
 
 	try {
 		const [rows] = await db.query(sql, params);
+
 		res.json({
-			code: 0,
-			data: rows
+			status: 200,
+			data: {
+				list: rows.map(item => ({
+					...item,
+					start_time: item
+						.course_start_time,
+					end_time: item
+						.course_end_time,
+					title: item
+						.course_title
+				}))
+			},
+			desc: '获取订单列表成功'
 		});
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({
-			code: 1,
-			msg: '数据库查询失败'
+			status: 500,
+			data: {},
+			desc: '数据库查询失败'
 		});
 	}
 });
+
 
 // 删除订单
 router.delete('/api/delOrder', async (req, res) => {

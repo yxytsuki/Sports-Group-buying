@@ -13,6 +13,8 @@ const orderRouter = require('./routes/order.js');
 const collectedRouter = require('./routes/collected.js')
 const adminRouter = require('./routes/admin.js')
 const studentRouter = require('./routes/student.js')
+const teacherRouter = require('./routes/teacher.js')
+const uploadRouter = require('./routes/upload.js')
 
 var app = express();
 // 启用CORS
@@ -38,8 +40,10 @@ app.use('/', detailRouter);
 app.use('/', payRouter);
 app.use('/', orderRouter);
 app.use('/', collectedRouter);
-app.use('/', adminRouter)
-app.use('/', studentRouter)
+app.use('/', adminRouter);
+app.use('/', studentRouter);
+app.use('/', teacherRouter);
+app.use('/', uploadRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

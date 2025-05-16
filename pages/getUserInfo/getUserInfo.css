@@ -62,3 +62,14 @@
 	text-align: center;
 
 }
+
+.admin-btn {
+	width: 160rpx;
+	height: 60rpx;
+	margin-left: 560rpx;
+	margin-top: 380rpx;
+	border: 1rpx solid #999;
+	line-height: 60rpx;
+	text-align: center;
+	border-radius: 8rpx;
+}

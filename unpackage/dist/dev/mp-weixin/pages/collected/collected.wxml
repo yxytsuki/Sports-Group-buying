@@ -1,0 +1,1 @@
+<view class="container"><uni-search-bar wx:if="{{c}}" bindinput="{{a}}" bindkeypress="{{b}}" u-i="80b122b8-0" bind:__l="__l" u-p="{{c}}"/><view wx:for="{{d}}" wx:for-item="item" class="course-item"><card-item wx:if="{{item.b}}" u-i="{{item.a}}" bind:__l="__l" u-p="{{item.b}}"/></view></view>

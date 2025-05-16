@@ -10,7 +10,15 @@
     "pages/teacherIndex/teacherIndex",
     "pages/teacher/teacher",
     "pages/getUserInfo/getUserInfo",
-    "pages/certified/certified"
+    "pages/certified/certified",
+    "pages/studentSet/studentSet",
+    "pages/newClass/newClass",
+    "pages/collected/collected",
+    "pages/modify/modify",
+    "pages/teacherIncome/teacherIncome",
+    "pages/newStudent/newStudent",
+    "pages/adminStudent/adminStudent",
+    "pages/adminIndex/adminIndex"
   ],
   "window": {
     "navigationBarTextStyle": "black",

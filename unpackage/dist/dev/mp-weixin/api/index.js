@@ -1,14 +1,14 @@
 "use strict";
+const common_vendor = require("../common/vendor.js");
 const utils_request = require("../utils/request.js");
-const getContentList = () => {
-  return utils_request.instance.get("https://m1.apifoxmock.com/m1/6035558-5725382-default/getContentList");
-};
 const getFilterData = (current, positionCurrent) => {
-  return utils_request.instance.post("https://m1.apifoxmock.com/m1/6035558-5725382-default/getFilterData", {
-    current,
-    positionCurrent
+  common_vendor.index.__f__("log", "at api/index.js:9", current, positionCurrent);
+  return utils_request.request.get("/api/index_list/filterdata", {
+    params: {
+      current,
+      positionCurrent
+    }
   });
 };
-exports.getContentList = getContentList;
 exports.getFilterData = getFilterData;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/api/index.js.map

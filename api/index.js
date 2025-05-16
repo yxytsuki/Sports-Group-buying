@@ -7,5 +7,10 @@ import request from '@/utils/request'
 // 获取筛选数据
 export const getFilterData = (current, positionCurrent) => {
 	console.log(current, positionCurrent)
-	return request.get(`/api/index_list/filterdata?current=0&positionCurrent=0`)
+	return request.get('/api/index_list/filterdata', {
+		params: {
+			current,
+			positionCurrent
+		}
+	})
 }

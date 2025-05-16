@@ -116,5 +116,42 @@ router.post('/api/admin/logout', async (req, res) => {
 	}
 });
 
+// 管理员-模糊查询教师
+router.post('/api/admin/adminSearchTeachers', async (req, res) => {
+	const {
+		keyword
+	} = req.body;
+
+	try {
+		let sql = `
+			SELECT user_id, user_name, nickName, avatar, amount, password, is_teacher, is_certified, description, phone
+			FROM users
+			WHERE is_teacher = true
+		`;
+		const params = [];
+
+		if (keyword) {
+			sql += ` AND (user_name LIKE ? OR nickName LIKE ? OR phone LIKE ?)`;
+			const likeKeyword = `%${keyword}%`;
+			params.push(likeKeyword, likeKeyword, likeKeyword);
+		}
+
+		const [results] = await pool.query(sql, params);
+
+		return res.json({
+			status: 200,
+			desc: '查询成功',
+			data: results
+		});
+	} catch (err) {
+		console.error('查询教练出错:', err);
+		return res.status(500).json({
+			status: 500,
+			desc: '服务器错误'
+		});
+	}
+});
+
+
 
 module.exports = router;

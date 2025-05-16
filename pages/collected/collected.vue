@@ -11,15 +11,22 @@
 <script>
 	import CardItem from '@/components/collectedItem/collectedItem.vue'
 	import {
+		useUserStore
+	} from '../../store/user'
+	import {
 		getCollectedCourse
 	} from '@/api/collected.js'
+	import {
+		debounce
+	} from 'lodash';
 	export default {
 		components: {
 			CardItem,
 		},
 		data() {
 			return {
-				courseList: []
+				courseList: [],
+				user_id: useUserStore().userInfo.user_id
 			}
 		},
 		created() {
@@ -27,9 +34,12 @@
 			this.debouncedInput = debounce(this.handleInput, 500);
 		},
 		async onLoad() {
-			const res = await getCollectedCourse()
-			this.courseList = [...res?.data?.collectedCourse]
-			console.log(this.courseList)
+			const res = await getCollectedCourse({
+				userId: this.user_id
+			})
+			console.log(res)
+			this.courseList = res
+
 		},
 		methods: {
 			// 输入框实时防抖处理
@@ -39,16 +49,17 @@
 			handleKeyPress(e) {
 				// 检查是否是回车键（keyCode 13 或 key 'Enter'）
 				if (e.keyCode === 13 || e.key === 'Enter') {
-					this.doSearch();
+					this.doSearch(e);
 				}
 			},
 			// 实际搜索方法
-			doSearch() {
-
-				uni.showLoading({
-					title: '搜索中...'
-				});
-				console.log(this.searchKeyword)
+			async doSearch() {
+				const res = await getCollectedCourse({
+					userId: this.user_id,
+					keyword: this.searchKeyword
+				})
+				console.log(res)
+				this.courseList = [...res]
 			}
 		}
 	}

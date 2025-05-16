@@ -9,13 +9,13 @@ const _sfc_main = {
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_assets._imports_0,
+    a: common_assets._imports_0$3,
     b: common_vendor.f(7, (item, k0, i0) => {
       return {
         a: item
       };
     }),
-    c: common_assets._imports_0
+    c: common_assets._imports_0$3
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);

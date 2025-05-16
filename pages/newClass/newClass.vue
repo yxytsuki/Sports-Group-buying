@@ -8,12 +8,17 @@
 			</uni-forms-item>
 			<!-- 课程介绍 -->
 			<uni-forms-item label="课程介绍" name="courseDesc" required>
-				<uni-easyinput v-model="formData.courseDesc" placeholder="请输入课程介绍" />
+				<uni-easyinput type="textarea" v-model="formData.courseDesc" placeholder="请输入课程介绍" />
 
 			</uni-forms-item>
 			<!-- 课程地点 -->
 			<uni-forms-item label="课程地点" name="location" required>
 				<uni-easyinput v-model="formData.location" placeholder="请输入课程地点" />
+
+			</uni-forms-item>
+			<!-- 课程详细地址 -->
+			<uni-forms-item label="详细地点" name="location" required>
+				<uni-easyinput v-model="formData.detailLocation" placeholder="请输入课程详细地点" />
 
 			</uni-forms-item>
 			<!-- 课程背景图 -->
@@ -41,12 +46,12 @@
 			</uni-forms-item>
 			<!-- 课程开始日期 -->
 			<uni-forms-item label="开始日期" name="startDate" required>
-				<uni-datetime-picker v-model="formData.startDate" type="date" :clear-icon="false" />
+				<uni-datetime-picker v-model="formData.startDate" type="time" :clear-icon="false" />
 
 			</uni-forms-item>
 			<!-- 课程结束日期 -->
 			<uni-forms-item label="结束日期" name="endDate" required>
-				<uni-datetime-picker v-model="formData.endDate" type="date" :clear-icon="false" />
+				<uni-datetime-picker v-model="formData.endDate" type="time" :clear-icon="false" />
 
 			</uni-forms-item>
 			<!-- 上课时间（周几） -->
@@ -61,15 +66,14 @@
 			</uni-forms-item>
 			<!-- 每天开始时间 -->
 			<uni-forms-item label="开始时间" name="dailyStartTime" required>
-				<view class="time-picker">
-					<uni-datetime-picker v-model="formData.dailyStartTime" type="time" :clear-icon="false" />
-				</view>
+				<uni-easyinput v-model="formData.dailyStartTime" placeholder="请输入课程开始时间(用冒号隔开)" />
+
 
 			</uni-forms-item>
 
 			<!-- 每天结束时间 -->
 			<uni-forms-item label="结束时间" name="dailyEndTime" required>
-				<uni-datetime-picker v-model="formData.dailyEndTime" type="time" :clear-icon="false" />
+				<uni-easyinput v-model="formData.dailyEndTime" placeholder="请输入课程结束时间(用冒号隔开)" />
 
 			</uni-forms-item>
 			<!-- 提交按钮 -->
@@ -83,6 +87,13 @@
 </template>
 
 <script>
+	import {
+		createCourse,
+		insertWeek
+	} from '../../api/teacher';
+	import {
+		useUserStore
+	} from '../../store/user';
 	export default {
 		data() {
 			return {
@@ -105,6 +116,7 @@
 					courseName: '',
 					courseDesc: '',
 					location: '',
+					detailLocation: '',
 					coverImage: '',
 					price: '',
 					courseNote: '',
@@ -137,6 +149,12 @@
 						rules: [{
 							required: true,
 							errorMessage: '请输入课程地点'
+						}]
+					},
+					detailLocation: {
+						rules: [{
+							required: true,
+							errorMessage: '请输入课程详细地点'
 						}]
 					},
 					coverImage: {
@@ -277,20 +295,49 @@
 				}
 			},
 			// 提交表单
-			submitForm() {
-				this.$refs.form.validate().then(res => {
-					console.log('表单数据', this.formData)
+			async submitForm() {
+				try {
+					await this.$refs.form.validate(); // 校验通过，不需要再写 .then
+
+					console.log('表单数据', this.formData);
+					console.log(JSON.parse(JSON.stringify(this.formData)));
+
+					const res = await createCourse({
+						teacher_id: useUserStore().userInfo.user_id,
+						teacher_name: useUserStore().userInfo.nickName,
+						...this.formData
+					});
+
+					console.log('创建成功', res);
+					// 可以在这里做成功提示或跳转等逻辑
 					uni.showToast({
-						title: '提交成功',
-						icon: 'success'
+						icon: 'success',
+						title: '创建成功'
 					})
-					uni.navigateTo({
-						url: 'pages/myClass/myClass'
+					const data = await insertWeek({
+						course_id: res.course_id,
+						startDate: this.formData.startDate,
+						endDate: this.formData.endDate,
+						dailyStartTime: this.formData.dailyStartTime,
+						dailyEndTime: this.formData.dailyEndTime,
+						weekDays: this.formData.weekDays
 					})
-				}).catch(err => {
-					console.log('表单错误', err)
-				})
+					console.log(data)
+					uni.showToast({
+						icon: 'success',
+						title: '发布成功'
+					})
+					this.timer = setTimeout(() => {
+						uni.switchTab({
+							url: `/pages/myClass/myClass`
+						})
+					}, 500)
+				} catch (err) {
+					console.log('表单错误或请求失败', err);
+					// 可以根据 err 判断是表单校验失败还是请求错误
+				}
 			}
+
 
 		}
 	}

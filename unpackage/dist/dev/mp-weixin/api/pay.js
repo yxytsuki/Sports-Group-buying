@@ -1,19 +1,19 @@
 "use strict";
 const utils_request = require("../utils/request.js");
 const getOrderDetail = (param) => {
-  return utils_request.instance.get("http://127.0.0.1:4523/m1/6035558-5725382-default/getOrderDetail", {
+  return utils_request.request.get("/api/createOrder", {
     params: {
       ...param
     }
   });
 };
 const getLinkContent = () => {
-  return utils_request.instance.get("http://127.0.0.1:4523/m1/6035558-5725382-default/getLinkContent");
+  return utils_request.request.get("/api/getLinkContent");
 };
-const checkPay = (coursePrice, password, userId) => {
-  return utils_request.instance.get(
-    `http://127.0.0.1:4523/m1/6035558-5725382-default/checkPay?coursePrice=${coursePrice}&password=${password}&userId=${userId}`
-  );
+const checkPay = (param) => {
+  return utils_request.request.post("/api/pay", {
+    ...param
+  });
 };
 exports.checkPay = checkPay;
 exports.getLinkContent = getLinkContent;

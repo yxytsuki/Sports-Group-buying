@@ -1,29 +1,77 @@
 {
-  "hash": "95c33d9b",
+  "hash": "bf4f4e94",
   "configHash": "8cae1893",
-  "lockfileHash": "db3221e0",
-  "browserHash": "659c1034",
+  "lockfileHash": "dfd14222",
+  "browserHash": "4bd7100e",
   "optimized": {
-    "uni-axios": {
-      "src": "../../../../../node_modules/uni-axios/index.js",
-      "file": "uni-axios.js",
-      "fileHash": "e32c0b1e",
-      "needsInterop": true
-    },
     "axios": {
       "src": "../../../../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "804d8689",
+      "fileHash": "728c9854",
       "needsInterop": false
     },
     "lodash": {
       "src": "../../../../../node_modules/lodash/lodash.js",
       "file": "lodash.js",
-      "fileHash": "eddb8b00",
+      "fileHash": "50d35035",
       "needsInterop": true
+    },
+    "echarts/core": {
+      "src": "../../../../../node_modules/echarts/core.js",
+      "file": "echarts_core.js",
+      "fileHash": "218d6120",
+      "needsInterop": false
+    },
+    "echarts/charts": {
+      "src": "../../../../../node_modules/echarts/charts.js",
+      "file": "echarts_charts.js",
+      "fileHash": "b7de9c5a",
+      "needsInterop": false
+    },
+    "echarts/components": {
+      "src": "../../../../../node_modules/echarts/components.js",
+      "file": "echarts_components.js",
+      "fileHash": "b971797f",
+      "needsInterop": false
+    },
+    "echarts/features": {
+      "src": "../../../../../node_modules/echarts/features.js",
+      "file": "echarts_features.js",
+      "fileHash": "bfb52f3f",
+      "needsInterop": false
+    },
+    "echarts/renderers": {
+      "src": "../../../../../node_modules/echarts/renderers.js",
+      "file": "echarts_renderers.js",
+      "fileHash": "019d6ac1",
+      "needsInterop": false
     }
   },
   "chunks": {
+    "chunk-W5YXOWPC": {
+      "file": "chunk-W5YXOWPC.js"
+    },
+    "chunk-6SWFG2LC": {
+      "file": "chunk-6SWFG2LC.js"
+    },
+    "chunk-Z3VYYX5A": {
+      "file": "chunk-Z3VYYX5A.js"
+    },
+    "chunk-TWD4YHWQ": {
+      "file": "chunk-TWD4YHWQ.js"
+    },
+    "chunk-535PLOHE": {
+      "file": "chunk-535PLOHE.js"
+    },
+    "chunk-VBNTIDHT": {
+      "file": "chunk-VBNTIDHT.js"
+    },
+    "chunk-3OCNYGD7": {
+      "file": "chunk-3OCNYGD7.js"
+    },
+    "chunk-QGQOLPAV": {
+      "file": "chunk-QGQOLPAV.js"
+    },
     "chunk-P2LSHJDD": {
       "file": "chunk-P2LSHJDD.js"
     }

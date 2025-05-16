@@ -24,7 +24,7 @@
 					{{amount}}
 				</view>
 			</view>
-			<!-- 优惠券（有时间补充） -->
+
 			<view class="user-join">
 				<view class="user-join-txt">
 					小区运动主理人
@@ -47,6 +47,12 @@
 					修改信息
 				</view>
 			</view>
+			<view class="user-content-menu" @click="logout">
+				<image src="/static/icon/logout.png" class="user-menu-icon"></image>
+				<view class="user-menu-title">
+					退出登录
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -56,15 +62,21 @@
 		useUserStore
 	} from '../../store/user';
 	import {
+		useAuth
+	} from '@/utils/getUserInfo.js'
+	import {
 		getUser
 	} from '/api/login.js'
+	import {
+		getlogout
+	} from '../../api/login';
 	export default {
 		data() {
 			return {
 				isLogin: false,
 				timer: null,
 				nickName: useUserStore().userInfo.nickName,
-				avator: useUserStore().userInfo.avator,
+				avator: useUserStore().userInfo.avatar,
 				amount: '',
 				isteacher: false,
 				// 是否认证
@@ -75,15 +87,24 @@
 			if (useUserStore().userInfo.token) {
 				this.isLogin = true
 				// 查询用户信息
-				const {
-					data
-				} = await getUser(useUserStore().userInfo.userId)
+				console.log(useUserStore().userInfo.userId)
+				const data = await getUser(useUserStore().userInfo.user_id)
 				console.log(data)
+				const oldUserInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+
+				const newUserInfo = {
+					...oldUserInfo, // 保留旧字段
+					...data // 覆盖部分字段（只更新传回来的字段）
+				};
+				localStorage.setItem('userInfo', JSON.stringify(newUserInfo));
+				useUserStore().setUserInfo(localStorage.getItem('userInfo'))
 				this.amount = data.amount
-				this.isteacher = data.isteacher
-				this.iscertified = data.iscertified
+				this.isteacher = data.is_teacher
+				this.iscertified = data.is_certified
 				this.nickName = data.nickName
-				this.avator = data.avator
+				this.avator = data.avatar
+				console.log('图片')
+				console.log(this.avator)
 			}
 		},
 		onUnload() {
@@ -102,15 +123,24 @@
 					})
 					this.timer = setTimeout(() => {
 						uni.navigateTo({
-							url: "/pages/getUserInfo/getUserInfo"
+							url: '/pages/getUserInfo/getUserInfo'
 						})
 					}, 500)
 
 				}
 
 			},
+			async logout() {
+				const res = await getlogout()
+				console.log(res)
+				localStorage.removeItem('userInfo');
+				uni.navigateTo({
+					url: '/pages/getUserInfo/getUserInfo'
+				})
+			},
 			joinTeacher() {
-				if (this.iscertified) {
+				if (!this.iscertified) {
+					console.log(this.iscertified)
 					uni.showToast({
 						title: "跳转中...",
 						icon: "loading",

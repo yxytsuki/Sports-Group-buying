@@ -1,0 +1,1 @@
+<view class="collected-course" bindtap="{{g}}"><view class="collected-backgroundImg"><image src="{{a}}" mode="aspectFill"></image><view class="collected-distance">{{b}}</view></view><view class="collected-detail"><view class="collected-title">{{c}}</view><view class="collected-instruction">{{d}}</view></view><view class="{{f}}">{{e}}</view></view>

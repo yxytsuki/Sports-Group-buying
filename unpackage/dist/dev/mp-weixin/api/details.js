@@ -1,12 +1,19 @@
 "use strict";
+const common_vendor = require("../common/vendor.js");
 const utils_request = require("../utils/request.js");
-const getCourseDetail = (id) => {
-  return utils_request.instance.post(`http://127.0.0.1:4523/m1/6035558-5725382-default/getCourseDetail?courseId=${id}`);
+const getCourseDetail = (params) => {
+  common_vendor.index.__f__("log", "at api/details.js:5", params);
+  return utils_request.request.get("/api/courseDetail", {
+    params: {
+      ...params
+    }
+  });
 };
-const collected = (id, iscollected) => {
-  return utils_request.instance.get(
-    `http://127.0.0.1:4523/m1/6035558-5725382-default/collected?id=${id}&isCollected=${iscollected}`
-  );
+const collected = (params) => {
+  common_vendor.index.__f__("log", "at api/details.js:15", params);
+  return utils_request.request.post("/api/detail_collected", {
+    ...params
+  });
 };
 exports.collected = collected;
 exports.getCourseDetail = getCourseDetail;

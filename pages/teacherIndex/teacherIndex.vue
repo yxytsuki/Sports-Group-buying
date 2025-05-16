@@ -117,7 +117,7 @@
 
 <script>
 	import {
-		getTeacherIndex
+		getTeacherIncome
 	} from '@/api/teacher_index.js'
 	import {
 		useUserStore
@@ -127,12 +127,12 @@
 		data() {
 			return {
 				isVisible: false,
-				amount: '',
+				amount: useUserStore().userInfo.amount,
 				todayIncome: '',
 				todayOrder: 0,
 				totalIncome: '',
 				nickName: useUserStore().userInfo.nickName,
-				avator: useUserStore().userInfo.avator,
+				avator: useUserStore().userInfo.avatar,
 				timer: null
 			}
 		},
@@ -170,24 +170,14 @@
 			},
 			// 查询教师版首页信息
 			async getTeacher() {
-				const {
-					data
-				} = await getTeacherIndex()
-				const {
-					teacherMsg
-				} = data
-				console.log(teacherMsg)
-				if (!data?.success) {
-					uni.showToast({
-						title: '暂无信息',
-						icon: 'none'
-					});
-					return
-				}
-				this.amount = teacherMsg?.amount
-				this.todayIncome = teacherMsg?.todayIncome
-				this.todayOrder = teacherMsg?.todayOrder
-				this.totalIncome = teacherMsg?.totalIncome
+				const data = await getTeacherIncome({
+					teacher_id: useUserStore().userInfo.user_id
+				})
+				console.log('教师收入信息', data)
+				this.amount = data?.balance
+				this.todayIncome = data?.today_income
+				this.todayOrder = data?.today_orders
+				this.totalIncome = data?.total_income
 
 			},
 			jumpTeacherIncome() {

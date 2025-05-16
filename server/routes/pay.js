@@ -16,6 +16,7 @@ async function generateNextOrderId(pool) {
 	return `o${nextId}`;
 }
 
+
 // 时间格式化工具
 function formatTime(ts) {
 	const date = new Date(ts);
@@ -56,7 +57,7 @@ router.get('/api/createOrder', async (req, res) => {
 		const amount = parseFloat(course.course_price);
 		const status = '待支付';
 		const is_pay = false;
-		const order_createTime = Date.now(); // 当前时间戳（毫秒）
+		const order_createTime = Date.now()
 
 		await pool.query(
 			`INSERT INTO orders (order_id, order_number, course_id, user_id, amount, is_pay, order_createTime, status)
@@ -98,6 +99,24 @@ router.get('/api/createOrder', async (req, res) => {
 			desc: '服务器错误'
 		});
 	}
+});
+
+
+// 协议详情接口
+router.get('/api/getLinkContent', (req, res) => {
+	const content = `跃动星球用户协议。
+欢迎您注册并使用跃动星球体育团课团购小程序（以下简称“本小程序”）。我们致力于为您提供优质的体育团课团购、预约及相关服务，帮助您享受健康、便捷的运动体验。
+在注册或使用本小程序前，请您仔细阅读并充分理解本用户协议（以下简称“协议”）的全部内容。本协议明确了您在使用本小程序过程中的权利、义务及相关规则，包括但不限于服务内容、用户行为规范、隐私保护及争议解决等。
+您的注册、登录或使用行为将被视为对本协议的完全接受，即表示您已同意并签约遵守本协议的所有条款。如您不同意本协议的任何内容，请立即停止使用本小程序。
+跃动星球体育团队`;
+
+	res.json({
+		status: 200,
+		data: {
+			content
+		},
+		desc: "请求成功"
+	});
 });
 
 // 支付接口
@@ -214,9 +233,16 @@ router.post('/api/pay', async (req, res) => {
 
 			// 学生加入课程
 			await conn.query(`
-				INSERT INTO course_students (course_id, student_id, student_name, avatar)
-				VALUES (?, ?, ?, ?)
-			`, [course.course_id, user.user_id, user.nickName || user.user_name, user.avatar]);
+				INSERT INTO course_students (course_id, student_id, student_name, avatar, teacher_id, title)
+				VALUES (?, ?, ?, ?, ?, ?)
+			`, [
+				course.course_id,
+				user.user_id,
+				user.nickName || user.user_name,
+				user.avatar,
+				course.teacher_id,
+				course.title
+			]);
 
 			// 更新订单为已支付
 			await conn.query(`
@@ -254,5 +280,57 @@ router.post('/api/pay', async (req, res) => {
 		});
 	}
 });
+
+// 获取订单详情
+// /api/getOrderDetail 接口：根据 orderId 获取订单详情
+router.get('/api/getOrderDetail', async (req, res) => {
+	const {
+		orderId
+	} = req.query;
+
+	if (!orderId) {
+		return res.status(400).json({
+			status: 400,
+			desc: '缺少 orderId 参数'
+		});
+	}
+
+	try {
+		const [rows] = await pool.query(`
+			SELECT 
+				order_id,
+				order_number,
+				course_id,
+				user_id,
+				amount,
+				is_pay,
+				order_createTime,
+				pay_time,
+				status
+			FROM orders
+			WHERE order_id = ?
+		`, [orderId]);
+
+		if (rows.length === 0) {
+			return res.status(404).json({
+				status: 404,
+				desc: '订单不存在'
+			});
+		}
+
+		return res.json({
+			status: 200,
+			data: rows[0],
+			desc: '获取订单详情成功'
+		});
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({
+			status: 500,
+			desc: '服务器错误'
+		});
+	}
+});
+
 
 module.exports = router;

@@ -1,0 +1,1 @@
+{"version":3,"file":"modeEnum.js","sources":["utils/modeEnum.js"],"sourcesContent":["// modeEnum.js\r\nexport const MODEENUM = {\r\n\tADD: 'add',\r\n\tMODIFY: 'modify',\r\n\tLOOK: 'look'\r\n};"],"names":[],"mappings":";AACY,MAAC,WAAW;AAAA,EACvB,KAAK;AAAA,EACL,QAAQ;AAAA,EACR,MAAM;AACP;;"}

@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import axios from 'axios'
+
 
 // 查询用户信息
 export const getUserMsg = (userId) => {

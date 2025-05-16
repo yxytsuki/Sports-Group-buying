@@ -1,8 +1,8 @@
 <template>
-	<view class="collected-course" @click="jumpCourseDetail(course.cardItemId)">
+	<view class="collected-course" @click="jumpCourseDetail(course.course_id)">
 		<!-- 背景 -->
 		<view class="collected-backgroundImg">
-			<image :src="course.backgroundImage" mode="aspectFill"></image>
+			<image :src="course.background_image" mode="aspectFill"></image>
 			<view class="collected-distance">
 				{{`${course.distance}km`}}
 			</view>
@@ -14,11 +14,11 @@
 			</view>
 			<!-- 介绍 -->
 			<view class="collected-instruction">
-				{{course.courseMsg}}
+				{{cleanCourseMsg(course.course_msg)}}
 			</view>
 		</view>
-		<view :class="course.isRunning?'collected-status':'collected-unstatus'">
-			{{course.isRunning?'进行中':'已结束'}}
+		<view :class="course.is_running?'collected-status':'collected-unstatus'">
+			{{course.is_running?'进行中':'已结束'}}
 		</view>
 	</view>
 </template>
@@ -27,6 +27,7 @@
 	import {
 		collected
 	} from '../../api/details';
+
 
 	export default {
 		props: {
@@ -39,6 +40,7 @@
 		},
 		name: "collectedItem",
 		onLoad() {
+			console.log(11)
 			console.log(course)
 		},
 		onUnload() {
@@ -50,9 +52,13 @@
 			};
 		},
 		methods: {
+			cleanCourseMsg(msg) {
+				// 清除换行
+				return msg?.replace(/<br\s*\/?>/gi, ' ') || ''
+			},
 			jumpCourseDetail(id) {
 				console.log(id)
-				if (this.course.isRunning) {
+				if (this.course.is_running) {
 					uni.showToast({
 						title: "跳转中...",
 						icon: "loading",
